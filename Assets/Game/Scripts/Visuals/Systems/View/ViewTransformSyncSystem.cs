@@ -6,6 +6,7 @@ using Unity.Transforms;
 namespace Game.Visuals.Systems
 {
     [UpdateInGroup(typeof(AnimationSystemGroup))]
+    [RequireMatchingQueriesForUpdate]
     public partial class ViewTransformSyncSystem : SystemBase
     {
         protected override void OnUpdate()

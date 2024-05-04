@@ -10,6 +10,7 @@ namespace Game.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<AttackStartedEvent>();
         }
 
         [BurstCompile]

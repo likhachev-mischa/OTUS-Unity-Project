@@ -1,5 +1,6 @@
 ﻿using Game.Components;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -17,11 +18,19 @@ namespace Game.Systems
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            EntityQuery query = SystemAPI.QueryBuilder().WithAllRW<LocalTransform>()
-                .WithAll<RotationDirectionAngle, RotationSpeed>().Build();
+            var eventQuery = SystemAPI.QueryBuilder().WithAll<RotationFinishedEvent>().Build();
+            state.EntityManager.DestroyEntity(eventQuery);
 
-            var job = new RotationAngleJob() { DeltaTime = SystemAPI.Time.DeltaTime };
-            state.Dependency = job.Schedule(state.Dependency);
+            EntityQuery query = SystemAPI.QueryBuilder().WithAllRW<LocalTransform>()
+                .WithAll<RotationDirectionAngle, RotationSpeed>().WithNone<Inactive>().Build();
+
+            var ecb = new EntityCommandBuffer(Allocator.TempJob);
+
+            var job = new RotationAngleJob() { DeltaTime = SystemAPI.Time.DeltaTime, ECB = ecb };
+            state.Dependency.Complete();
+            job.Run(query);
+            ecb.Playback(state.EntityManager);
+            ecb.Dispose();
         }
 
         [BurstCompile]
@@ -34,9 +43,11 @@ namespace Game.Systems
     public partial struct RotationAngleJob : IJobEntity
     {
         private static readonly float EPSILON = 0.1f;
+        public EntityCommandBuffer ECB;
         public float DeltaTime;
 
-        private void Execute(ref LocalTransform transform, in RotationDirectionAngle angle, in RotationSpeed speed)
+        private void Execute(ref LocalTransform transform, in RotationDirectionAngle angle, in RotationSpeed speed,
+            in Entity entity)
         {
             float3 normal = transform.Forward();
             float currentAngle = math.atan2(normal.z, normal.x);
@@ -49,6 +60,8 @@ namespace Game.Systems
 
             if (math.abs(delta) <= EPSILON)
             {
+                var @event = ECB.CreateEntity();
+                ECB.AddComponent(@event, new RotationFinishedEvent() { Source = entity });
                 return;
             }
 

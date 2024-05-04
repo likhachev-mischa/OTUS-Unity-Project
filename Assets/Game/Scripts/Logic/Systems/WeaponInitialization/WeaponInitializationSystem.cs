@@ -31,6 +31,7 @@ namespace Game.Systems.WeaponInitialization
                 ecb.AddComponent(entity, new WeaponEntity() { Value = weaponEntity });
                 ecb.AddComponent(weaponEntity, new Parent() { Value = entity });
                 ecb.AddComponent(weaponEntity, new OwnerEntity() { Value = entity });
+                ecb.AddComponent(weaponEntity, new WeaponCollisionData());
             }
 
             ecb.Playback(state.EntityManager);

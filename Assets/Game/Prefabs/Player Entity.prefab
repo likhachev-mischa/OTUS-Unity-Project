@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3526381248866930700}
   - component: {fileID: 6251506632689768305}
   - component: {fileID: 230497005384463605}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player Entity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,15 +65,12 @@ MonoBehaviour:
     CanAttack: 0
     Cooldown: 0
   attackTypeAuthoring:
-    rid: 4121600269320716290
+    rid: -2
   references:
     version: 2
     RefIds:
-    - rid: 4121600269320716290
-      type: {class: MeleeAttackAuthoringComponent, ns: Game.Authoring, asm: Logic}
-      data:
-        startAngle: 0
-        traversalAngle: 0
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!114 &6251506632689768305
 MonoBehaviour:
   m_ObjectHideFlags: 0

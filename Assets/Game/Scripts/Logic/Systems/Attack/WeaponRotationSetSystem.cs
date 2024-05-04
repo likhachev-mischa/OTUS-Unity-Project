@@ -48,9 +48,11 @@ namespace Game.Systems
         [ReadOnly]
         public ComponentLookup<WeaponEntity> WeaponLookup;
 
+        [ReadOnly]
+        public ComponentLookup<MeleeAttackAngle> AttackAngleLookup;
+
         public ComponentLookup<LocalTransform> TransformLookup;
         public ComponentLookup<RotationDirectionAngle> RotationDirectionAngleLookup;
-        public ComponentLookup<MeleeAttackAngle> AttackAngleLookup;
 
         private void Execute(in AttackStartedEvent attackStartedEvent)
         {

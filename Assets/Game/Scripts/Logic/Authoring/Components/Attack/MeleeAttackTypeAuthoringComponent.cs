@@ -17,9 +17,9 @@ namespace Game.Authoring
 
         public void Bake(IBaker baker, Entity entity)
         {
-            var startAngleBlob = BakingUtils.CreateInitialComponent(startAngle);
+            var startAngleBlob = BlobUtils.CreateInitialComponent(startAngle);
             baker.AddBlobAsset(ref startAngleBlob, out _);
-            var endAngleBlob = BakingUtils.CreateInitialComponent(-traversalAngle);
+            var endAngleBlob = BlobUtils.CreateInitialComponent(-traversalAngle);
             baker.AddBlobAsset(ref endAngleBlob, out _);
             baker.AddComponent(entity,
                 new MeleeAttackAngle() { StartPosition = startAngleBlob, TraversalAngle = endAngleBlob });

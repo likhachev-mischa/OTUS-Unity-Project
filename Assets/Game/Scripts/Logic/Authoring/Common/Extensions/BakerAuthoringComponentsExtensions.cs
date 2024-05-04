@@ -12,13 +12,13 @@ namespace Game.Utils
             baker.AddComponent<MoveDirection>(entity);
             baker.AddComponent<RotationDirection>(entity);
             BlobAssetReference<float> initialMovementSpeedBlob =
-                BakingUtils.CreateInitialComponent(movementComponent.MovementSpeed);
+                BlobUtils.CreateInitialComponent(movementComponent.MovementSpeed);
             baker.AddBlobAsset(ref initialMovementSpeedBlob, out _);
             baker.AddComponent(entity,
                 new MoveSpeed { Value = movementComponent.MovementSpeed, InitialValue = initialMovementSpeedBlob });
 
             BlobAssetReference<float> initialRotationSpeedBlob =
-                BakingUtils.CreateInitialComponent(movementComponent.RotationSpeed);
+                BlobUtils.CreateInitialComponent(movementComponent.RotationSpeed);
             baker.AddBlobAsset(ref initialRotationSpeedBlob, out _);
             baker.AddComponent(entity,
                 new RotationSpeed()
@@ -29,11 +29,11 @@ namespace Game.Utils
             baker.AddComponent<MovementState>(entity);
 
             BlobAssetReference<Curve> speedUpCurveBlob =
-                BakingUtils.CreateCurveComponent(movementComponent.AccelerationCurve, movementComponent.CurvePrecision);
+                BlobUtils.CreateCurveComponent(movementComponent.AccelerationCurve, movementComponent.CurvePrecision);
             baker.AddBlobAsset(ref speedUpCurveBlob, out _);
 
             BlobAssetReference<float> speedUpTimeBlob =
-                BakingUtils.CreateInitialComponent(movementComponent.AccelerationTime);
+                BlobUtils.CreateInitialComponent(movementComponent.AccelerationTime);
             baker.AddBlobAsset(ref speedUpTimeBlob, out _);
 
             baker.AddComponent(entity, new SpeedUpCurve() { Curve = speedUpCurveBlob, SpeedUpTime = speedUpTimeBlob });
@@ -70,7 +70,7 @@ namespace Game.Utils
                 new AttackStates()
                     { CanAttack = attackAuthoringComponent.CanAttack, IsAttacking = false, IsOnCooldown = false });
 
-            var cooldownBlob = BakingUtils.CreateInitialComponent(attackAuthoringComponent.Cooldown);
+            var cooldownBlob = BlobUtils.CreateInitialComponent(attackAuthoringComponent.Cooldown);
             baker.AddBlobAsset(ref cooldownBlob, out _);
             baker.AddComponent(entity,
                 new AttackCooldown() { Value = attackAuthoringComponent.Cooldown, InitialValue = cooldownBlob });
@@ -80,7 +80,7 @@ namespace Game.Utils
             in WeaponStatsAuthoringComponent weaponStatsAuthoringComponent)
         {
             BlobAssetReference<float> initialRotationSpeedBlob =
-                BakingUtils.CreateInitialComponent(weaponStatsAuthoringComponent.RotationSpeed);
+                BlobUtils.CreateInitialComponent(weaponStatsAuthoringComponent.RotationSpeed);
             baker.AddBlobAsset(ref initialRotationSpeedBlob, out _);
             baker.AddComponent(entity,
                 new RotationSpeed()
@@ -89,7 +89,7 @@ namespace Game.Utils
             baker.AddComponent<RotationDirectionAngle>(entity);
 
             BlobAssetReference<float> lengthBlob =
-                BakingUtils.CreateInitialComponent(weaponStatsAuthoringComponent.Length);
+                BlobUtils.CreateInitialComponent(weaponStatsAuthoringComponent.Length);
             baker.AddBlobAsset(ref lengthBlob, out _);
             baker.AddComponent(entity, new WeaponLength() { Value = lengthBlob });
             baker.AddComponent(entity,

@@ -139,11 +139,11 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 512
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 183
-  m_LayerOverridePriority: 0
+    m_Bits: 503
+  m_LayerOverridePriority: 1
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -174,7 +174,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -187,15 +187,35 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5144460581399558204, guid: 22350692f761ffd4aa0490ff40321f29,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5144460581399558204, guid: 22350692f761ffd4aa0490ff40321f29,
+        type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: -1675586650195060246, guid: 22350692f761ffd4aa0490ff40321f29,
         type: 3}
       propertyPath: curvePrecision
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4592048881342788868, guid: 22350692f761ffd4aa0490ff40321f29,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5017275681616359820, guid: 22350692f761ffd4aa0490ff40321f29,
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017275681616359820, guid: 22350692f761ffd4aa0490ff40321f29,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5994897778673703739, guid: 22350692f761ffd4aa0490ff40321f29,
         type: 3}
@@ -249,6 +269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6466781690956314567, guid: 22350692f761ffd4aa0490ff40321f29, type: 3}
+    - {fileID: 4592048881342788868, guid: 22350692f761ffd4aa0490ff40321f29, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7024172897507706449, guid: 22350692f761ffd4aa0490ff40321f29, type: 3}
     m_AddedGameObjects: []
@@ -256,11 +277,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5017275681616359820, guid: 22350692f761ffd4aa0490ff40321f29,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 474700011}
-    - targetCorrespondingSourceObject: {fileID: 5017275681616359820, guid: 22350692f761ffd4aa0490ff40321f29,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 474700010}
+      addedObject: {fileID: 474700016}
   m_SourcePrefab: {fileID: 100100000, guid: 22350692f761ffd4aa0490ff40321f29, type: 3}
 --- !u!1 &474700007 stripped
 GameObject:
@@ -268,200 +285,33 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 361102975}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &474700010
-MonoBehaviour:
+--- !u!54 &474700016
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474700007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MotionType: 0
-  m_Smoothing: 0
+  serializedVersion: 4
   m_Mass: 1
-  m_LinearDamping: 0.01
-  m_AngularDamping: 0.05
-  m_InitialLinearVelocity:
-    x: 0
-    y: 0
-    z: 0
-  m_InitialAngularVelocity:
-    x: 0
-    y: 0
-    z: 0
-  m_GravityFactor: 0
-  m_OverrideDefaultMassDistribution: 0
-  m_CenterOfMass:
-    x: 0
-    y: 0
-    z: 0
-  m_Orientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_InertiaTensor:
-    x: 0.4
-    y: 0.4
-    z: 0.4
-  m_WorldIndex: 0
-  m_CustomTags:
-    Tag00: 0
-    Tag01: 0
-    Tag02: 0
-    Tag03: 0
-    Tag04: 0
-    Tag05: 0
-    Tag06: 0
-    Tag07: 0
---- !u!114 &474700011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474700007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShapeType: 1
-  m_PrimitiveCenter:
-    x: 0
-    y: 1
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 2
-  m_PrimitiveOrientation:
-    Value:
-      x: 90
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 2
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 2
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 1
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-  m_SerializedVersion: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &920068647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,7 +1418,7 @@ PrefabInstance:
     - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
         type: 3}
       propertyPath: attackTypeAuthoring
-      value: 4121600252374417408
+      value: 4121600269320716291
       objectReference: {fileID: 0}
     - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
         type: 3}
@@ -1618,6 +1468,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
         type: 3}
+      propertyPath: managedReferences[4121600269320716288]
+      value: Logic Game.Authoring.MeleeAttackAuthoringComponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
+        type: 3}
+      propertyPath: managedReferences[4121600269320716291]
+      value: Logic Game.Authoring.MeleeAttackTypeAuthoringComponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
+        type: 3}
       propertyPath: movementAuthoringComponent.MovementSpeed
       value: 5
       objectReference: {fileID: 0}
@@ -1659,6 +1519,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
         type: 3}
+      propertyPath: managedReferences[4121600269320716288].startAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
+        type: 3}
+      propertyPath: managedReferences[4121600269320716291].startAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
+        type: 3}
       propertyPath: managedReferences[231918189873201152].traversalAngle
       value: 0
       objectReference: {fileID: 0}
@@ -1670,6 +1540,16 @@ PrefabInstance:
     - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
         type: 3}
       propertyPath: managedReferences[4121600252374417408].traversalAngle
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
+        type: 3}
+      propertyPath: managedReferences[4121600269320716288].traversalAngle
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
+        type: 3}
+      propertyPath: managedReferences[4121600269320716291].traversalAngle
       value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 3526381248866930700, guid: 40d80e77f9b95cb4e949a6971329f68b,
@@ -1905,73 +1785,73 @@ MonoBehaviour:
     m_BelongsToCategories:
       m_Override: 0
       m_Value:
-        Category00: 1
-        Category01: 1
-        Category02: 1
-        Category03: 1
-        Category04: 1
-        Category05: 1
-        Category06: 1
-        Category07: 1
-        Category08: 1
-        Category09: 1
-        Category10: 1
-        Category11: 1
-        Category12: 1
-        Category13: 1
-        Category14: 1
-        Category15: 1
-        Category16: 1
-        Category17: 1
-        Category18: 1
-        Category19: 1
-        Category20: 1
-        Category21: 1
-        Category22: 1
-        Category23: 1
-        Category24: 1
-        Category25: 1
-        Category26: 1
-        Category27: 1
-        Category28: 1
-        Category29: 1
-        Category30: 1
-        Category31: 1
+        Category00: 0
+        Category01: 0
+        Category02: 0
+        Category03: 0
+        Category04: 0
+        Category05: 0
+        Category06: 0
+        Category07: 0
+        Category08: 0
+        Category09: 0
+        Category10: 0
+        Category11: 0
+        Category12: 0
+        Category13: 0
+        Category14: 0
+        Category15: 0
+        Category16: 0
+        Category17: 0
+        Category18: 0
+        Category19: 0
+        Category20: 0
+        Category21: 0
+        Category22: 0
+        Category23: 0
+        Category24: 0
+        Category25: 0
+        Category26: 0
+        Category27: 0
+        Category28: 0
+        Category29: 0
+        Category30: 0
+        Category31: 0
     m_CollidesWithCategories:
       m_Override: 0
       m_Value:
-        Category00: 1
-        Category01: 1
-        Category02: 1
-        Category03: 1
-        Category04: 1
-        Category05: 1
-        Category06: 1
-        Category07: 1
-        Category08: 1
-        Category09: 1
-        Category10: 1
-        Category11: 1
-        Category12: 1
-        Category13: 1
-        Category14: 1
-        Category15: 1
-        Category16: 1
-        Category17: 1
-        Category18: 1
-        Category19: 1
-        Category20: 1
-        Category21: 1
-        Category22: 1
-        Category23: 1
-        Category24: 1
-        Category25: 1
-        Category26: 1
-        Category27: 1
-        Category28: 1
-        Category29: 1
-        Category30: 1
-        Category31: 1
+        Category00: 0
+        Category01: 0
+        Category02: 0
+        Category03: 0
+        Category04: 0
+        Category05: 0
+        Category06: 0
+        Category07: 0
+        Category08: 0
+        Category09: 0
+        Category10: 0
+        Category11: 0
+        Category12: 0
+        Category13: 0
+        Category14: 0
+        Category15: 0
+        Category16: 0
+        Category17: 0
+        Category18: 0
+        Category19: 0
+        Category20: 0
+        Category21: 0
+        Category22: 0
+        Category23: 0
+        Category24: 0
+        Category25: 0
+        Category26: 0
+        Category27: 0
+        Category28: 0
+        Category29: 0
+        Category30: 0
+        Category31: 0
     m_CustomMaterialTags:
       m_Override: 0
       m_Value:

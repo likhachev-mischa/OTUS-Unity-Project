@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Weapon
-  - Entity
-  - 
-  - 
+  - Weapon Player
+  - Entity Player
+  - Entity Enemy
+  - Weapon Enemy
   - 
   - 
   - 

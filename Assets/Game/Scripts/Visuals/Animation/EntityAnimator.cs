@@ -12,6 +12,9 @@ namespace Game.Visuals
         private static readonly int DirectionZ = Animator.StringToHash("DirectionZ");
         private static readonly int DirectionX = Animator.StringToHash("DirectionX");
 
+        private static readonly int AttackId = Animator.StringToHash("Attack");
+        private static readonly int TakeDamageId = Animator.StringToHash("Take Damage");
+
         [SerializeField]
         private float initialAnimationSpeed;
 
@@ -48,6 +51,16 @@ namespace Game.Visuals
             float newZ = math.lerp(oldZ, z, lerpFactor);
             animator.SetFloat(DirectionX, newX);
             animator.SetFloat(DirectionZ, newZ);
+        }
+
+        public void SetAttackTrigger()
+        {
+            animator.SetTrigger(AttackId);
+        }
+
+        public void SetTakeDamageTrigger()
+        {
+            animator.SetTrigger(TakeDamageId);
         }
     }
 }
