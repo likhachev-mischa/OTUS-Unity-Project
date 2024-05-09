@@ -7,36 +7,44 @@ namespace Game.Logic.Common
 {
     public sealed class ObjectPoolDirectory : IDisposable
     {
-        private Dictionary<Type, ObjectPool<MonoBehaviour>> pools;
+        private Dictionary<MonoBehaviour, ObjectPool<MonoBehaviour>> pools;
         private IObjectResolver objectResolver;
 
         public ObjectPoolDirectory(IObjectResolver objectResolver)
         {
-            pools = new Dictionary<Type, ObjectPool<MonoBehaviour>>();
+            pools = new Dictionary<MonoBehaviour, ObjectPool<MonoBehaviour>>();
             this.objectResolver = objectResolver;
         }
 
         public T GetObject<T>(T prefab, Vector3 position, Quaternion rotation, Transform parent = null)
             where T : MonoBehaviour
         {
-            var type = typeof(T);
-            if (!pools.ContainsKey(type))
+            if (!pools.ContainsKey(prefab))
             {
-                pools.Add(type, new ObjectPool<MonoBehaviour>(objectResolver, prefab));
+                pools.Add(prefab, new ObjectPool<MonoBehaviour>(objectResolver, prefab));
             }
 
-            return pools[type].GetObject(position, rotation, parent) as T;
+            return pools[prefab].GetObject(position, rotation, parent) as T;
+        }
+
+        public T GetObject<T>(T prefab, Transform parent = null) where T : MonoBehaviour
+        {
+            if (!pools.ContainsKey(prefab))
+            {
+                pools.Add(prefab, new ObjectPool<MonoBehaviour>(objectResolver, prefab));
+            }
+
+            return pools[prefab].GetObject(Vector3.zero, Quaternion.identity, parent) as T;
         }
 
         public void ReceiveObject<T>(T obj) where T : MonoBehaviour
         {
-            var type = typeof(T);
-            pools[type].ReceiveObject(obj);
+            pools[obj].ReceiveObject(obj);
         }
 
         public void Dispose()
         {
-            foreach ((Type key, ObjectPool<MonoBehaviour> value) in pools)
+            foreach ((MonoBehaviour key, ObjectPool<MonoBehaviour> value) in pools)
             {
                 value.Dispose();
             }

@@ -7,7 +7,7 @@ namespace Game.Components
     public struct SpeedUpCurve : IComponentData
     {
         public BlobAssetReference<Curve> Curve;
-        public BlobAssetReference<float> SpeedUpTime;
+        public float SpeedUpTime;
         public float ElapsedTime;
     }
 }

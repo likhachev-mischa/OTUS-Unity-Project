@@ -9,20 +9,15 @@ namespace Game.Utils
         public static void BakeMovementComponent(this IBaker baker, Entity entity,
             in MovementAuthoringComponent movementComponent)
         {
-            baker.AddComponent<MoveDirection>(entity);
+            baker.AddComponent<MovementDirection>(entity);
             baker.AddComponent<RotationDirection>(entity);
-            BlobAssetReference<float> initialMovementSpeedBlob =
-                BlobUtils.CreateInitialComponent(movementComponent.MovementSpeed);
-            baker.AddBlobAsset(ref initialMovementSpeedBlob, out _);
             baker.AddComponent(entity,
-                new MoveSpeed { Value = movementComponent.MovementSpeed, InitialValue = initialMovementSpeedBlob });
+                new MovementSpeed { Value = movementComponent.MovementSpeed });
+            baker.AddSharedComponent(entity, new MovementSpeedShared() { Value = movementComponent.MovementSpeed });
 
-            BlobAssetReference<float> initialRotationSpeedBlob =
-                BlobUtils.CreateInitialComponent(movementComponent.RotationSpeed);
-            baker.AddBlobAsset(ref initialRotationSpeedBlob, out _);
             baker.AddComponent(entity,
                 new RotationSpeed()
-                    { Value = movementComponent.RotationSpeed, InitialValue = initialRotationSpeedBlob });
+                    { Value = movementComponent.RotationSpeed });
 
             baker.AddComponent(entity, new MovementFlags() { CanMove = true });
 
@@ -32,11 +27,8 @@ namespace Game.Utils
                 BlobUtils.CreateCurveComponent(movementComponent.AccelerationCurve, movementComponent.CurvePrecision);
             baker.AddBlobAsset(ref speedUpCurveBlob, out _);
 
-            BlobAssetReference<float> speedUpTimeBlob =
-                BlobUtils.CreateInitialComponent(movementComponent.AccelerationTime);
-            baker.AddBlobAsset(ref speedUpTimeBlob, out _);
-
-            baker.AddComponent(entity, new SpeedUpCurve() { Curve = speedUpCurveBlob, SpeedUpTime = speedUpTimeBlob });
+            baker.AddComponent(entity,
+                new SpeedUpCurve() { Curve = speedUpCurveBlob, SpeedUpTime = movementComponent.AccelerationTime });
         }
 
         public static void BakeVisualProxyComponent(this IBaker baker, Entity entity,
@@ -70,28 +62,19 @@ namespace Game.Utils
                 new AttackStates()
                     { CanAttack = attackAuthoringComponent.CanAttack, IsAttacking = false, IsOnCooldown = false });
 
-            var cooldownBlob = BlobUtils.CreateInitialComponent(attackAuthoringComponent.Cooldown);
-            baker.AddBlobAsset(ref cooldownBlob, out _);
             baker.AddComponent(entity,
-                new AttackCooldown() { Value = attackAuthoringComponent.Cooldown, InitialValue = cooldownBlob });
+                new AttackCooldown() { Value = attackAuthoringComponent.Cooldown });
         }
 
         public static void BakeWeaponStatsComponent(this IBaker baker, Entity entity,
             in WeaponStatsAuthoringComponent weaponStatsAuthoringComponent)
         {
-            BlobAssetReference<float> initialRotationSpeedBlob =
-                BlobUtils.CreateInitialComponent(weaponStatsAuthoringComponent.RotationSpeed);
-            baker.AddBlobAsset(ref initialRotationSpeedBlob, out _);
             baker.AddComponent(entity,
                 new RotationSpeed()
-                    { Value = weaponStatsAuthoringComponent.RotationSpeed, InitialValue = initialRotationSpeedBlob });
+                    { Value = weaponStatsAuthoringComponent.RotationSpeed });
 
             baker.AddComponent<RotationDirectionAngle>(entity);
-
-            BlobAssetReference<float> lengthBlob =
-                BlobUtils.CreateInitialComponent(weaponStatsAuthoringComponent.Length);
-            baker.AddBlobAsset(ref lengthBlob, out _);
-            baker.AddComponent(entity, new WeaponLength() { Value = lengthBlob });
+            baker.AddComponent(entity, new WeaponLength() { Value = weaponStatsAuthoringComponent.Length });
             baker.AddComponent(entity,
                 new WeaponFlagsComponent() { Value = weaponStatsAuthoringComponent.WeaponFlags });
         }

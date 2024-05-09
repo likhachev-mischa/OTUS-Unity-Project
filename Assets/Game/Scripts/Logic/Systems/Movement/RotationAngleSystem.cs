@@ -65,7 +65,7 @@ namespace Game.Systems
                 return;
             }
 
-            int rotationAngle = (int)math.sign(angle.Destination) == (int)math.sign(angle.Initial) ? -1 : 1;
+            int rotationAngle = -(int)math.sign(angle.Destination);
 
             transform = transform.RotateY(rotationAngle * speed.Value * DeltaTime);
         }

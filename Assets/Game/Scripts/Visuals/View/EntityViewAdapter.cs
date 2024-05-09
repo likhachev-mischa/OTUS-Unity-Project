@@ -8,8 +8,11 @@ using UnityEngine;
 
 namespace Game.Visuals
 {
-    public sealed class PlayerViewAdapter : MonoBehaviour, IViewAdapter
+    public sealed class EntityViewAdapter : MonoBehaviour, IViewAdapter
     {
+        [SerializeField]
+        public WeaponViewAdapter WeaponViewAdapter;
+
         public Entity Entity { get; set; }
         public event Action VisualsDrawn;
 
@@ -24,7 +27,7 @@ namespace Game.Visuals
             float length = 1;
             if (Entity.TryGetComponent(out WeaponEntity weaponEntity))
             {
-                length = weaponEntity.Value.GetComponent<WeaponLength>().Value.Value;
+                length = weaponEntity.Value.GetComponent<WeaponLength>().Value;
             }
 
             var angles = Entity.GetComponent<MeleeAttackAngle>();

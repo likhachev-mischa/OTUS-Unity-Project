@@ -21,7 +21,7 @@ namespace Game.Systems
         {
             var controllerDirection = SystemAPI.GetSingleton<MoveDirectionController>();
             EntityQuery query = SystemAPI.QueryBuilder().WithAll<ControllableTag, RotationDirection>()
-                .WithAllRW<MoveDirection>()
+                .WithAllRW<MovementDirection>()
                 .Build();
 
             var job = new MoveDirectionSetJob() { controllerDirection = controllerDirection.Value };
@@ -40,11 +40,11 @@ namespace Game.Systems
         [ReadOnly]
         public float2 controllerDirection;
 
-        private void Execute(ref MoveDirection moveDirection, in RotationDirection rotationDirection)
+        private void Execute(ref MovementDirection movementDirection, in RotationDirection rotationDirection)
         {
             if (controllerDirection.Equals(float2.zero))
             {
-                moveDirection.Value = float3.zero;
+                movementDirection.Value = float3.zero;
                 return;
             }
 
@@ -58,8 +58,8 @@ namespace Game.Systems
 
             var moveDir = new float2(math.cos(controllerAngle), math.sin(controllerAngle));
 
-            moveDirection.Value.x = moveDir.x;
-            moveDirection.Value.z = moveDir.y;
+            movementDirection.Value.x = moveDir.x;
+            movementDirection.Value.z = moveDir.y;
         }
     }
 }

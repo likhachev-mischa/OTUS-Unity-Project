@@ -1,5 +1,6 @@
 ﻿using Game.Components;
 using Game.Visuals.Components;
+using Unity.Collections;
 using Unity.Entities;
 
 namespace Game.Visuals.Systems
@@ -15,14 +16,13 @@ namespace Game.Visuals.Systems
 
         protected override void OnUpdate()
         {
-            var singleton = SystemAPI.GetSingleton<EndInitializationEntityCommandBufferSystem.Singleton>();
-            EntityCommandBuffer ecb = singleton.CreateCommandBuffer(World.Unmanaged);
+            EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
 
             foreach ((_, VisualTransform visualProxy, Entity entity) in SystemAPI
                          .Query<RefRO<VisualProxySpawnRequest>, VisualTransform>()
                          .WithEntityAccess())
             {
-                if (!visualProxy.Value.TryGetComponent(out PlayerViewAdapter adapter))
+                if (!visualProxy.Value.TryGetComponent(out EntityViewAdapter adapter))
                 {
                     continue;
                 }
@@ -34,6 +34,9 @@ namespace Game.Visuals.Systems
                         Value = adapter
                     });
             }
+
+            ecb.Playback(EntityManager);
+            ecb.Dispose();
         }
     }
 }

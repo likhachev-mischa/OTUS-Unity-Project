@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6837e2ade76f410cabfcc20a579f54b2, type: 3}
   m_Name: LoadingTasksConfig
   m_EditorClassIdentifier: 
-  loadingTasks: []
+  loadingTasks:
+  - {fileID: 200676275453325326, guid: db0101ab4177f174aa7adac57fbc3487, type: 3}

@@ -17,30 +17,27 @@ namespace Game.Systems
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var query = SystemAPI.QueryBuilder().WithAll<AttackCollisionEvent>().Build();
-            var array = query.ToEntityArray(Allocator.Temp);
-
-            var eventLookup = SystemAPI.GetComponentLookup<AttackCollisionEvent>();
+            var ecb = new EntityCommandBuffer(Allocator.Temp);
             var collisionDataLookup = SystemAPI.GetComponentLookup<WeaponCollisionData>();
-            foreach (Entity entity in array)
+            foreach (var (@event, entity) in SystemAPI.Query<RefRO<AttackCollisionEvent>>().WithEntityAccess())
             {
-                var @event = eventLookup.GetRefRO(entity).ValueRO;
-                if (!collisionDataLookup.HasComponent(@event.Source))
+                if (!collisionDataLookup.HasComponent(@event.ValueRO.Source))
                 {
                     continue;
                 }
 
-                var list = collisionDataLookup.GetRefRW(@event.Source).ValueRW.CollidedEntities;
-                if (list.BinarySearch(@event.Target) >= 0)
+                var list = collisionDataLookup.GetRefRW(@event.ValueRO.Source).ValueRW.CollidedEntities;
+                if (list.BinarySearch(@event.ValueRO.Target) >= 0)
                 {
-                    state.EntityManager.DestroyEntity(entity);
+                    ecb.DestroyEntity(entity);
                     continue;
                 }
 
-                list.Add(@event.Target);
+                list.Add(@event.ValueRO.Target);
             }
 
-            array.Dispose();
+            ecb.Playback(state.EntityManager);
+            ecb.Dispose();
         }
 
         [BurstCompile]

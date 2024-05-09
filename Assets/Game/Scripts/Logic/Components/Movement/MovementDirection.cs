@@ -5,7 +5,7 @@ using Unity.Mathematics;
 namespace Game.Components
 {
     [Serializable]
-    public struct MoveDirection : IComponentData
+    public struct MovementDirection : IComponentData
     {
         public float3 Value;
     }

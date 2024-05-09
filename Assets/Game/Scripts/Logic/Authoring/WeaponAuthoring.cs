@@ -14,6 +14,9 @@ namespace Game.Authoring
         [SerializeField]
         public WeaponStatsAuthoringComponent weaponStatsAuthoringComponent;
 
+        [SerializeField]
+        private VisualProxyAuthoringComponent visualProxyAuthoringComponent;
+
 
         public class Baker : Baker<WeaponAuthoring>
         {
@@ -22,14 +25,15 @@ namespace Game.Authoring
                 Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
 
                 this.BakeWeaponStatsComponent(entity, authoring.weaponStatsAuthoringComponent);
+                //this.BakeVisualProxyComponent(entity, authoring.visualProxyAuthoringComponent);
+                AddComponentObject(entity,
+                    new VisualProxyPrefab() { Value = authoring.visualProxyAuthoringComponent.ViewPrefab });
+
 
                 AddComponent<CachedWeaponCollisionFilter>(entity);
 
-                var initialDamage = BlobUtils.CreateInitialComponent(authoring.damageAuthoringComponent.Damage);
-                AddBlobAsset(ref initialDamage, out _);
-
                 AddComponent(entity,
-                    new Damage { Value = authoring.damageAuthoringComponent.Damage, InitialValue = initialDamage });
+                    new Damage { Value = authoring.damageAuthoringComponent.Damage });
 
                 var collider = authoring.GetComponent<BoxCollider>();
                 collider.size = new Vector3(1, 0, authoring.weaponStatsAuthoringComponent.Length);

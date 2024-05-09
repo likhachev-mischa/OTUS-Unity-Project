@@ -12,6 +12,6 @@ namespace Game.Logic.Installers
         private SystemsUpdateStateController systemsUpdateStateController = new();
 
         [Listener]
-        private ContextEntityCreator contextEntityCreator = new();
+        private DIComponentsCreator diComponentsCreator = new();
     }
 }

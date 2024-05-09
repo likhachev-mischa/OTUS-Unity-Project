@@ -7,6 +7,5 @@ namespace Game.Components
     public struct Health : IComponentData
     {
         public float Value;
-        //public BlobAssetReference<float> InitialValue;
     }
 }

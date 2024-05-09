@@ -17,7 +17,7 @@ namespace Game.Systems
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            EntityQuery query = SystemAPI.QueryBuilder().WithAll<MoveDirection>().WithAllRW<MovementFlags>().Build();
+            EntityQuery query = SystemAPI.QueryBuilder().WithAll<MovementDirection>().WithAllRW<MovementFlags>().Build();
 
             var job = new MovementFlagsSetJob();
 
@@ -33,7 +33,7 @@ namespace Game.Systems
     [BurstCompile]
     public partial struct MovementFlagsSetJob : IJobEntity
     {
-        private void Execute(in MoveDirection direction, ref MovementFlags flags)
+        private void Execute(in MovementDirection direction, ref MovementFlags flags)
         {
             if (!flags.CanMove || direction.Value.Equals(float3.zero))
             {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace LoadSystem
 {
@@ -14,27 +14,16 @@ namespace LoadSystem
         [SerializeField]
         private ProjectContext projectContext;
 
-        [SerializeField]
-        private int sceneId = 1;
 
         private void Start()
         {
             projectContext.RegisterProject();
             projectContext.StartProject();
 
-            if (sceneId != 0)
-            {
-                LoadApplication().Forget();
-                LoadSceneAsync().Forget();
-            }
-            else
-            {
-                projectContext.RegisterScene();
-                projectContext.StartScene();
-            }
+            LoadApplicationAsync().Forget();
         }
 
-        private async UniTaskVoid LoadApplication()
+        private async UniTaskVoid LoadApplicationAsync()
         {
             IReadOnlyList<LoadingTask> taskList = loadingTasksConfig.LoadingTasks;
 
@@ -45,11 +34,14 @@ namespace LoadSystem
                     await task.LoadTask();
                 }
             }
+
+            Debug.Log("all tasks completed");
+
+            LoadScene();
         }
 
-        public async UniTaskVoid LoadSceneAsync()
+        private void LoadScene()
         {
-            await SceneManager.LoadSceneAsync(sceneId, LoadSceneMode.Single);
             projectContext.RegisterScene();
             projectContext.StartScene();
         }

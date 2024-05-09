@@ -20,12 +20,12 @@ namespace Game.Visuals.Systems
             var moveStateSetJob = new AnimatorMoveStateSetJob();
             moveStateSetJob.Run(stateQuery);
 
-            EntityQuery speedQuery = SystemAPI.QueryBuilder().WithAll<MoveSpeed>().WithAll<VisualAnimator>().Build();
+            EntityQuery speedQuery = SystemAPI.QueryBuilder().WithAll<MovementSpeed>().WithAll<VisualAnimator>().Build();
 
             var speedSetJob = new AnimatorSpeedSetJob();
             speedSetJob.Run(speedQuery);
 
-            EntityQuery directionQuery = SystemAPI.QueryBuilder().WithAll<MoveDirection, LocalTransform>()
+            EntityQuery directionQuery = SystemAPI.QueryBuilder().WithAll<MovementDirection, LocalTransform>()
                 .WithAll<VisualAnimator>().Build();
 
             var directionSetJob = new AnimatorDirectionSetJob();
@@ -43,15 +43,15 @@ namespace Game.Visuals.Systems
 
     public partial struct AnimatorSpeedSetJob : IJobEntity
     {
-        private void Execute(in MoveSpeed moveSpeed, VisualAnimator animator)
+        private void Execute(in MovementSpeed movementSpeed, VisualAnimator animator)
         {
-            animator.Value.SetSpeed(moveSpeed.Value);
+            animator.Value.SetSpeed(movementSpeed.Value);
         }
     }
 
     public partial struct AnimatorDirectionSetJob : IJobEntity
     {
-        private void Execute(in MoveDirection direction, in LocalTransform transform, VisualAnimator animator)
+        private void Execute(in MovementDirection direction, in LocalTransform transform, VisualAnimator animator)
         {
             if (direction.Value.Equals(float3.zero))
             {

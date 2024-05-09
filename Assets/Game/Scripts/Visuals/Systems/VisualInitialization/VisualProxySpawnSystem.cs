@@ -1,5 +1,5 @@
-﻿using Game.Components;
-using Game.Visuals.Components;
+﻿using Game.Authoring;
+using Game.Components;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
@@ -10,9 +10,17 @@ namespace Game.Visuals.Systems
     [UpdateInGroup(typeof(VisualProxyInitializationSystemGroup), OrderFirst = true)]
     public partial class VisualProxySpawnSystem : SystemBase
     {
+        protected override void OnCreate()
+        {
+            RequireForUpdate<ObjectPoolComponent>();
+        }
+
         protected override void OnUpdate()
         {
             var singleton = SystemAPI.GetSingleton<EndInitializationEntityCommandBufferSystem.Singleton>();
+            var poolQuery = SystemAPI.QueryBuilder().WithAll<ObjectPoolComponent>().Build();
+            var pool = poolQuery.GetSingleton<ObjectPoolComponent>().Value;
+
             EntityCommandBuffer ecb = singleton.CreateCommandBuffer(World.Unmanaged);
             EntityQuery query = SystemAPI.QueryBuilder().WithAll<VisualProxySpawnRequest>().WithAll<VisualProxyPrefab>()
                 .Build();
@@ -22,7 +30,7 @@ namespace Game.Visuals.Systems
             foreach (Entity entity in entityArray)
             {
                 var prefab = EntityManager.GetComponentData<VisualProxyPrefab>(entity);
-                GameObject go = Object.Instantiate(prefab.Value);
+                var go = pool.GetObject(prefab.Value).gameObject;
 
                 Transform transform = go.transform;
                 EntityManager.AddComponentObject(entity, new VisualTransform() { Value = transform });

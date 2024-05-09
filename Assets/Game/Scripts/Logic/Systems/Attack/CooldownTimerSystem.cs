@@ -16,14 +16,15 @@ namespace Game.Systems
         public void OnUpdate(ref SystemState state)
         {
             float deltaTime = SystemAPI.Time.DeltaTime;
-            foreach ((RefRW<AttackStates> attackState, RefRW<AttackCooldown> attackCooldown) in SystemAPI
-                         .Query<RefRW<AttackStates>, RefRW<AttackCooldown>>())
+            foreach ((RefRW<AttackStates> attackState, RefRW<AttackCooldown> attackCooldown, Entity entity) in SystemAPI
+                         .Query<RefRW<AttackStates>, RefRW<AttackCooldown>>().WithEntityAccess())
             {
                 if (attackState.ValueRO.IsOnCooldown)
                 {
                     if (attackCooldown.ValueRO.Value <= 0)
                     {
-                        attackCooldown.ValueRW.Value = attackCooldown.ValueRW.InitialValue.Value;
+                        attackCooldown.ValueRW.Value =
+                            state.EntityManager.GetSharedComponent<AttackCooldownShared>(entity).Value;
                         attackState.ValueRW.IsOnCooldown = false;
                     }
                     else

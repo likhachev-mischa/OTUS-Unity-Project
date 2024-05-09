@@ -18,7 +18,7 @@ namespace Game.Systems
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            EntityQuery query = SystemAPI.QueryBuilder().WithAllRW<LocalTransform>().WithAll<MoveSpeed, MoveDirection>()
+            EntityQuery query = SystemAPI.QueryBuilder().WithAllRW<LocalTransform>().WithAll<MovementSpeed, MovementDirection>()
                 .Build();
             float deltaTime = SystemAPI.Time.DeltaTime;
             var job = new TransformMoveJob() { deltaTime = deltaTime };
@@ -38,9 +38,9 @@ namespace Game.Systems
         [ReadOnly]
         public float deltaTime;
 
-        private void Execute(ref LocalTransform transform, in MoveSpeed moveSpeed, in MoveDirection direction)
+        private void Execute(ref LocalTransform transform, in MovementSpeed movementSpeed, in MovementDirection direction)
         {
-            transform = transform.Translate(direction.Value * moveSpeed.Value * deltaTime);
+            transform = transform.Translate(direction.Value * movementSpeed.Value * deltaTime);
         }
     }
 }

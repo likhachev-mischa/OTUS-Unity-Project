@@ -18,8 +18,8 @@ namespace Game.Systems
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            EntityQuery query = SystemAPI.QueryBuilder().WithAll<MovementState>()
-                .WithAll<SpeedUpCurve>().WithAllRW<MoveSpeed>().Build();
+            EntityQuery query = SystemAPI.QueryBuilder().WithAll<MovementState>().WithAll<MovementSpeedShared>()
+                .WithAll<SpeedUpCurve>().WithAllRW<MovementSpeed>().Build();
 
             var job = new SpeedCurveJob() { deltaTime = SystemAPI.Time.DeltaTime };
 
@@ -38,25 +38,25 @@ namespace Game.Systems
         [ReadOnly]
         public float deltaTime;
 
-        private void Execute(ref MoveSpeed moveSpeed, ref SpeedUpCurve curve,
+        private void Execute(ref MovementSpeed movementSpeed, ref SpeedUpCurve curve,in MovementSpeedShared movementSpeedShared,
             in MovementState state)
         {
             if (state.Value == MovementStates.IDLE)
             {
                 curve.ElapsedTime = 0f;
-                moveSpeed.Value = 0f;
+                movementSpeed.Value = 0f;
                 return;
             }
 
             curve.ElapsedTime += deltaTime;
 
-            float delta = curve.ElapsedTime / curve.SpeedUpTime.Value;
+            float delta = curve.ElapsedTime / curve.SpeedUpTime;
             delta = math.min(delta, 1f);
             int steps = curve.Curve.Value.Array.Length - 1;
 
             var currentStep = (int)(delta * steps);
 
-            moveSpeed.Value = curve.Curve.Value.Array[currentStep] * moveSpeed.InitialValue.Value;
+            movementSpeed.Value = curve.Curve.Value.Array[currentStep] * movementSpeedShared.Value;
         }
     }
 }

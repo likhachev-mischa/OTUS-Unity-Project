@@ -16,9 +16,18 @@ namespace Game.Logic.Common
 
         public ObjectPool(IObjectResolver objectResolver, T prefab, int initialSize = 0)
         {
+            
             this.objectResolver = objectResolver;
             activeObjects = new List<T>(initialSize);
             inactiveObjects = new List<T>(initialSize);
+
+            for (int i = 0; i < initialSize; ++i)
+            {
+                T spawnedObject = objectResolver.CreateGameObjectInstance(prefab, Vector3.zero, Quaternion.identity);
+                spawnedObject.gameObject.SetActive(false);
+                inactiveObjects[i] = spawnedObject;
+            }
+
             this.prefab = prefab;
         }
 
@@ -30,15 +39,14 @@ namespace Game.Logic.Common
                 activeObjects.Add(spawnedObject);
                 return spawnedObject;
             }
-
             T inactiveObject = inactiveObjects[0];
-            
+
             var transform = inactiveObject.GetComponent<Transform>();
             transform.parent = parent;
             transform.position = position;
             transform.rotation = rotation;
             inactiveObject.gameObject.SetActive(true);
-            
+
             activeObjects.Add(inactiveObject);
             inactiveObjects.Remove(inactiveObject);
             return inactiveObject;

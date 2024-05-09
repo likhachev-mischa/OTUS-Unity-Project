@@ -101,9 +101,12 @@ MonoBehaviour:
   damageAuthoringComponent:
     Damage: 5
   weaponStatsAuthoringComponent:
-    RotationSpeed: 30
+    RotationSpeed: 10.3
     Length: 3
     WeaponFlags: 0
+  visualProxyAuthoringComponent:
+    ViewPrefab: {fileID: 8506116166658223433, guid: beb94a4d61f9d084a81e5c424ac87c86,
+      type: 3}
 --- !u!65 &1699977039614494360
 BoxCollider:
   m_ObjectHideFlags: 0

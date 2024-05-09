@@ -6,6 +6,6 @@ namespace Game.Components
     [Serializable]
     public struct WeaponLength : IComponentData
     {
-        public BlobAssetReference<float> Value;
+        public float Value;
     }
 }

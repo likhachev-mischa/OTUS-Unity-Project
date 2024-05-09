@@ -7,6 +7,6 @@ namespace Game.Authoring
     public sealed class VisualProxyAuthoringComponent
     {
         [SerializeField]
-        public GameObject ViewPrefab;
+        public VisualProxy ViewPrefab;
     }
 }
