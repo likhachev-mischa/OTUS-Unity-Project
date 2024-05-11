@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LoadSystem
 {
-    [CreateAssetMenu(menuName = "Configs/System/Loading Tasks", fileName = "LoadingTasksConfig", order = 0)]
+    [CreateAssetMenu(menuName = "Configs/System/LoadingTasks/Config", fileName = "LoadingTasksConfig", order = -1000)]
     public class LoadingTasksConfig : ScriptableObject
     {
         [SerializeField]

@@ -9,6 +9,11 @@ namespace Game.Visuals.Systems
     [RequireMatchingQueriesForUpdate]
     public partial class TakeDamageAnimatorControllerSystem : SystemBase
     {
+        protected override void OnCreate()
+        {
+            RequireForUpdate<DealDamageEvent>();
+        }
+
         protected override void OnUpdate()
         {
             foreach (RefRO<DealDamageEvent> dealDamageEvent in SystemAPI.Query<RefRO<DealDamageEvent>>())

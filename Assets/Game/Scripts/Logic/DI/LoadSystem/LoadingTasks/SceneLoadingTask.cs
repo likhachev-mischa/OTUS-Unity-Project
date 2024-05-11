@@ -1,17 +1,17 @@
-﻿using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Unity.Entities.Content;
-using Unity.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace LoadSystem
 {
+    [CreateAssetMenu(menuName = "Configs/System/LoadingTasks/SceneLoadingTask", fileName = "SceneLoadingTask")]
     public sealed class SceneLoadingTask : LoadingTask
     {
         //[SerializeField]
-        // private WeakObjectSceneReference sceneReference;
-        private int id = 1;
+        //private WeakObjectSceneReference sceneReference;
+        [SerializeField]
+        private int sceneId = 1;
 
         public override async UniTask LoadTask()
         {
@@ -26,7 +26,7 @@ namespace LoadSystem
             //
             // Debug.Log("scene loaded");
             // utcs.TrySetResult();
-            await SceneManager.LoadSceneAsync(id, LoadSceneMode.Additive);
+            await SceneManager.LoadSceneAsync(sceneId, LoadSceneMode.Additive);
             Debug.Log("scene loaded");
         }
     }

@@ -11,8 +11,18 @@ namespace DI
         private GameInstallerContainer sceneInstallerContainer;
 
         private GameInstaller[] gameInstallers;
+        private List<GameObjectInstaller> gameObjectInstallers = new();
 
-        public void RegisterServices(ServiceLocator serviceLocator, GameManager gameManager)
+        public void RegisterInstaller(GameObjectInstaller installer)
+        {
+            ExtractListeners(installer);
+            ExtractServices(installer);
+            ExtractInjectors(installer);
+
+            gameObjectInstallers.Add(installer);
+        }
+
+        public void RegisterScene(ServiceLocator serviceLocator, GameManager gameManager)
         {
             this.serviceLocator = serviceLocator;
             this.gameManager = gameManager;
@@ -41,18 +51,28 @@ namespace DI
         {
             foreach (GameInstaller installer in gameInstallers)
             {
-                if (installer is IGameListenerProvider listenerProvider)
-                {
-                    gameManager.RemoveListeners(listenerProvider.ProvideListeners());
-                }
+                RemoveInstaller(installer);
+            }
 
-                if (installer is IServiceProvider serviceProvider)
+            foreach (GameObjectInstaller gameObjectInstaller in gameObjectInstallers)
+            {
+                RemoveInstaller(gameObjectInstaller);
+            }
+        }
+
+        private void RemoveInstaller(object installer)
+        {
+            if (installer is IGameListenerProvider listenerProvider)
+            {
+                gameManager.RemoveListeners(listenerProvider.ProvideListeners());
+            }
+
+            if (installer is IServiceProvider serviceProvider)
+            {
+                IEnumerable<(Type, object)> services = serviceProvider.ProvideServices();
+                foreach ((Type type, object service) temp in services)
                 {
-                    IEnumerable<(Type, object)> services = serviceProvider.ProvideServices();
-                    foreach ((Type type, object service) temp in services)
-                    {
-                        serviceLocator.RemoveService(temp.type);
-                    }
+                    serviceLocator.RemoveService(temp.type);
                 }
             }
         }

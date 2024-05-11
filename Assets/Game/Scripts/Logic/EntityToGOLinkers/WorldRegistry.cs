@@ -9,7 +9,7 @@ namespace Game.Logic
         EVENT
     }
 
-    public sealed class WorldRegistry
+    public sealed class WorldRegistry : ILateLoadListener
     {
         private World mainWorld;
         private World eventWorld;
@@ -18,6 +18,7 @@ namespace Game.Logic
         private void Construct()
         {
             mainWorld = World.DefaultGameObjectInjectionWorld;
+            ScriptBehaviourUpdateOrder.RemoveWorldFromCurrentPlayerLoop(mainWorld);
 
             eventWorld = new World("Event World", WorldFlags.None);
         }
@@ -30,6 +31,12 @@ namespace Game.Logic
                 Worlds.EVENT => eventWorld,
                 _ => mainWorld
             };
+        }
+
+
+        public void OnLateLoad()
+        {
+            ScriptBehaviourUpdateOrder.AppendWorldToCurrentPlayerLoop(mainWorld);
         }
     }
 }

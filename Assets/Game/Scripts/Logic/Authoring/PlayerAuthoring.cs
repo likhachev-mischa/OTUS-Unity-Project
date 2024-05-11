@@ -19,8 +19,8 @@ namespace Game.Authoring
         [SerializeField]
         public AttackAuthoringComponent attackAuthoringComponent;
 
-        //[SerializeReference]
-        //public IAttackTypeAuthoring attackTypeAuthoring;
+        [SerializeField]
+        public AttackTypeAuthoring attackTypeAuthoring;
 
         public sealed class Baker : Baker<PlayerAuthoring>
         {
@@ -37,7 +37,7 @@ namespace Game.Authoring
                 this.BakeMovementComponent(entity, authoring.movementAuthoringComponent);
                 this.BakeVisualProxyComponent(entity, authoring.visualProxyAuthoringComponent);
                 this.BakeWeaponComponent(entity, authoring.weaponAuthoringComponent);
-               //aaaaaaaaa this.BakeAttackTypeComponent(entity, authoring.attackTypeAuthoring);
+                this.BakeAttackTypeComponent(entity, authoring.attackTypeAuthoring);
                 this.BakeAttackComponent(entity, authoring.attackAuthoringComponent);
             }
         }

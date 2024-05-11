@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LoadSystem
 {
-    public abstract class LoadingTask : MonoBehaviour
+    public abstract class LoadingTask : ScriptableObject
     {
         public abstract UniTask LoadTask();
     }

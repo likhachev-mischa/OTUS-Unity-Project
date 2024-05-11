@@ -9,6 +9,11 @@ namespace Game.Visuals.Systems
     [RequireMatchingQueriesForUpdate]
     public partial class AttackAnimationControllerSystem : SystemBase
     {
+        protected override void OnCreate()
+        {
+            RequireForUpdate<AttackStartedEvent>();
+        }
+
         protected override void OnUpdate()
         {
             foreach (RefRO<AttackStartedEvent> attackStartedEvent in SystemAPI.Query<RefRO<AttackStartedEvent>>())

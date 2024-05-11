@@ -13,6 +13,7 @@ namespace Game.Visuals.Systems
         protected override void OnCreate()
         {
             RequireForUpdate<ObjectPoolComponent>();
+            RequireForUpdate<WeaponInitializationRequest>();
         }
 
         protected override void OnUpdate()
@@ -21,18 +22,11 @@ namespace Game.Visuals.Systems
             var poolQuery = SystemAPI.QueryBuilder().WithAll<ObjectPoolComponent>().Build();
             var pool = poolQuery.GetSingleton<ObjectPoolComponent>();
 
-
             foreach ((_, RefRO<WeaponEntity> weaponEntity,
                          var viewAdapter) in SystemAPI
                          .Query<RefRO<WeaponInitializationRequest>, RefRO<WeaponEntity>, ViewAdapterComponent>())
             {
-                Debug.Log("step in");
-                // Component weaponVisual = visualTransform.Value.GetComponentInChildren(typeof(WeaponViewAdapter));
-                // if (weaponVisual == null)
-                // {
-                //     continue;
-                // }
-                if (viewAdapter.Value is not EntityViewAdapter entityViewAdapter)
+                if (viewAdapter.Value is not PlayerViewAdapter entityViewAdapter)
                 {
                     continue;
                 }
@@ -44,9 +38,9 @@ namespace Game.Visuals.Systems
 
                 if (EntityManager.HasComponent<VisualProxyPrefab>(weaponEntity.ValueRO.Value))
                 {
-                    Debug.Log("no component");
+                    var transform = entityViewAdapter.WeaponViewAdapter.transform;
                     pool.Value.GetObject(EntityManager.GetComponentData<VisualProxyPrefab>(weaponEntity.ValueRO.Value)
-                        .Value, entityViewAdapter.WeaponViewAdapter.transform);
+                        .Value, transform.position, transform.rotation, transform);
                 }
             }
 

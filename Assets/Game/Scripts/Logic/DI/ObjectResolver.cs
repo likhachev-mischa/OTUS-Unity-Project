@@ -7,26 +7,27 @@ namespace DI
     public sealed class ObjectResolver : IObjectResolver
     {
         private readonly ServiceLocator serviceLocator;
-        private readonly List<Type> services;
+        private readonly List<IGameListener> listeners = new();
         private readonly GameManager manager;
+        private readonly SceneContext context;
 
-        public ObjectResolver(ServiceLocator serviceLocator, GameManager manager)
+        public ObjectResolver(ServiceLocator serviceLocator, GameManager manager, SceneContext context)
         {
             this.serviceLocator = serviceLocator;
             this.manager = manager;
-            services = new List<Type>();
+            this.context = context;
         }
 
         public T CreateInstance<T>() where T : new()
         {
             T instance = new();
-            DependencyInjector.Inject(instance, serviceLocator);
             if (instance is IGameListener listener)
             {
                 manager.AddListener(listener);
+                listeners.Add(listener);
             }
 
-            services.Add(typeof(T));
+            DependencyInjector.Inject(instance, serviceLocator);
             return instance;
         }
 
@@ -34,24 +35,34 @@ namespace DI
             Transform parentTransform = null) where T : MonoBehaviour
         {
             T instance = GameObject.Instantiate(prefab, position, rotation, parentTransform);
-            DependencyInjector.Inject(instance, serviceLocator);
-            if (instance is IGameListener listener)
+            if (instance.TryGetComponent(out GameObjectInstaller installer))
             {
-                manager.AddListener(listener);
+                context.RegisterInstaller(installer);
             }
 
-            services.Add(typeof(T));
+            return instance;
+        }
+
+        public GameObject CreateGameObjectInstance(GameObject prefab, Vector3 position, Quaternion rotation,
+            Transform parentTransform = null)
+        {
+            GameObject instance = GameObject.Instantiate(prefab, position, rotation, parentTransform);
+            if (instance.TryGetComponent(out GameObjectInstaller installer))
+            {
+                context.RegisterInstaller(installer);
+            }
+
             return instance;
         }
 
         public void Dispose()
         {
-            for (var i = 0; i < services.Count; i++)
+            for (var i = 0; i < listeners.Count; i++)
             {
-                serviceLocator.RemoveService(services[i]);
+                manager.RemoveListener(listeners[i]);
             }
 
-            services.Clear();
+            listeners.Clear();
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Game.Utils
         }
 
         public static void BakeAttackTypeComponent(this IBaker baker, Entity entity,
-            IAttackTypeAuthoring attackTypeAuthoring)
+            AttackTypeAuthoring attackTypeAuthoring)
         {
             attackTypeAuthoring.Bake(baker, entity);
         }

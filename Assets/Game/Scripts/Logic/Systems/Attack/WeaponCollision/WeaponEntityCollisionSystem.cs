@@ -20,15 +20,12 @@ namespace Game.Systems
         public void OnUpdate(ref SystemState state)
         {
             ComponentLookup<OwnerEntity> ownerLookup = SystemAPI.GetComponentLookup<OwnerEntity>();
-            ComponentLookup<TeamComponent> teamLookup = SystemAPI.GetComponentLookup<TeamComponent>();
-            ComponentLookup<WeaponFlagsComponent> weaponFlagsLookup =
-                SystemAPI.GetComponentLookup<WeaponFlagsComponent>();
 
             var singleton = SystemAPI.GetSingleton<EndFixedStepSimulationEntityCommandBufferSystem.Singleton>();
             var ecb = singleton.CreateCommandBuffer(state.WorldUnmanaged);
             var job = new WeaponEntityCollisionJob()
             {
-                OwnerLookup = ownerLookup, TeamLookup = teamLookup, WeaponFlagsLookup = weaponFlagsLookup, ECB = ecb
+                OwnerLookup = ownerLookup, ECB = ecb
             };
             state.Dependency = job.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
         }
@@ -44,12 +41,6 @@ namespace Game.Systems
     {
         [ReadOnly]
         public ComponentLookup<OwnerEntity> OwnerLookup;
-
-        [ReadOnly]
-        public ComponentLookup<TeamComponent> TeamLookup;
-
-        [ReadOnly]
-        public ComponentLookup<WeaponFlagsComponent> WeaponFlagsLookup;
 
         public EntityCommandBuffer ECB;
 

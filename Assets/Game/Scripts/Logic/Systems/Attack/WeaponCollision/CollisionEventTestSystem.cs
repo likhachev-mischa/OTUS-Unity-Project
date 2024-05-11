@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Systems
 {
-    [UpdateInGroup(typeof(WeaponCollisionSystemGroup))]
+    [UpdateInGroup(typeof(WeaponCollisionHandleSystemGroup))]
     public partial struct CollisionEventTestSystem : ISystem
     {
         [BurstCompile]

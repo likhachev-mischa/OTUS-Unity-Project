@@ -84,6 +84,7 @@ namespace DI
         {
             serviceLocator = new ServiceLocator();
             gameManager = gameObject.AddComponent<GameManager>();
+            serviceLocator.BindService(typeof(GameManager), gameManager);
         }
 
         private void Inject(Transform targetTransform)

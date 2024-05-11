@@ -2,6 +2,7 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using UnityEngine;
 
 namespace Game.Systems
 {
@@ -19,7 +20,7 @@ namespace Game.Systems
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);
             var collisionDataLookup = SystemAPI.GetComponentLookup<WeaponCollisionData>();
-            foreach (var (@event, entity) in SystemAPI.Query<RefRO<AttackCollisionEvent>>().WithEntityAccess())
+            foreach (var (@event, eventEntity) in SystemAPI.Query<RefRO<AttackCollisionEvent>>().WithEntityAccess())
             {
                 if (!collisionDataLookup.HasComponent(@event.ValueRO.Source))
                 {
@@ -27,9 +28,10 @@ namespace Game.Systems
                 }
 
                 var list = collisionDataLookup.GetRefRW(@event.ValueRO.Source).ValueRW.CollidedEntities;
-                if (list.BinarySearch(@event.ValueRO.Target) >= 0)
+
+                if (list.Contains(@event.ValueRO.Target))
                 {
-                    ecb.DestroyEntity(entity);
+                    ecb.DestroyEntity(eventEntity);
                     continue;
                 }
 

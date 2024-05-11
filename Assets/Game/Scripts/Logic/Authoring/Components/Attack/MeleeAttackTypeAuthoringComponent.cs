@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Game.Authoring
 {
     [Serializable]
-    public class MeleeAttackTypeAuthoringComponent : IAttackTypeAuthoring
+    public class MeleeAttackTypeAuthoringComponent : AttackTypeAuthoring
     {
         [SerializeField]
         public float startAngle;
@@ -15,7 +15,7 @@ namespace Game.Authoring
         [SerializeField]
         public float traversalAngle;
 
-        public void Bake(IBaker baker, Entity entity)
+        public override void Bake(IBaker baker, Entity entity)
         {
             var startAngleBlob = BlobUtils.CreateInitialComponent(startAngle);
             baker.AddBlobAsset(ref startAngleBlob, out _);

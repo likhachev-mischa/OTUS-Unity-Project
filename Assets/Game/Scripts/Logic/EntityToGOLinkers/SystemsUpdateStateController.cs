@@ -5,14 +5,21 @@ using Unity.Entities;
 
 namespace Game.Logic
 {
-    public sealed class SystemsUpdateStateController : IGamePauseListener, IGameResumeListener, IGameUpdateListener
+    public sealed class SystemsUpdateStateController : IInitializable, IGamePauseListener, IGameResumeListener,
+        IGameUpdateListener
     {
+        private WorldRegistry worldRegistry;
         private World mainWorld;
         private World eventWorld;
         private Entity singleton;
 
         [Inject]
         private void Construct(WorldRegistry worldRegistry)
+        {
+            this.worldRegistry = worldRegistry;
+        }
+
+        void IInitializable.Initialize()
         {
             mainWorld = worldRegistry.GetWorld(Worlds.MAIN);
             eventWorld = worldRegistry.GetWorld(Worlds.EVENT);

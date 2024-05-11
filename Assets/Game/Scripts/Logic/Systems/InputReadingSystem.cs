@@ -28,7 +28,6 @@ namespace Game.Systems
             mouseMoveAction = InputSystem.actions.FindAction("CharacterLook");
             attackAction = InputSystem.actions.FindAction("Attack");
 
-
             mouseMoveAction.performed += OnMouseMoved;
             attackAction.performed += OnAttackPressed;
 
