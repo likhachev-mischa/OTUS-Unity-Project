@@ -55,10 +55,10 @@ GameObject:
   - component: {fileID: 2803196338843470127}
   - component: {fileID: 4952437104634494063}
   - component: {fileID: 3370823229561755899}
+  - component: {fileID: -7130445053241068133}
   - component: {fileID: 252498720288380283}
   - component: {fileID: 9035387252321579415}
-  - component: {fileID: -3861590515232705984}
-  - component: {fileID: -7130445053241068133}
+  - component: {fileID: 3110770665780656229}
   m_Layer: 0
   m_Name: Player Visual
   m_TagString: Untagged
@@ -208,6 +208,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7130445053241068133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992237935721306604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a05a19791f6d493683e9dd02d368d19d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerViewAdapter: {fileID: 9035387252321579415}
+  playerView: {fileID: 3110770665780656229}
 --- !u!114 &252498720288380283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponViewAdapter: {fileID: 8954073665985129240}
---- !u!114 &-3861590515232705984
+  playerView: {fileID: 3110770665780656229}
+--- !u!114 &3110770665780656229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,22 +260,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1992237935721306604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ade405d45f4c719c695bbd40fe1a15, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b788c49a4e543ee9771ffde572c97f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-7130445053241068133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992237935721306604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a05a19791f6d493683e9dd02d368d19d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerViewAdapter: {fileID: 9035387252321579415}
 --- !u!1001 &3367355986072647355
 PrefabInstance:
   m_ObjectHideFlags: 0

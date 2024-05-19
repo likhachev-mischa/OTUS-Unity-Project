@@ -39,7 +39,7 @@ namespace Game.Visuals.Systems
                 if (EntityManager.HasComponent<VisualProxyPrefab>(weaponEntity.ValueRO.Value))
                 {
                     var transform = entityViewAdapter.WeaponViewAdapter.transform;
-                    pool.Value.GetObject(EntityManager.GetComponentData<VisualProxyPrefab>(weaponEntity.ValueRO.Value)
+                    pool.Value.SpawnObject(EntityManager.GetComponentData<VisualProxyPrefab>(weaponEntity.ValueRO.Value)
                         .Value, transform.position, transform.rotation, transform);
                 }
             }

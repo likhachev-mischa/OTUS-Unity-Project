@@ -5,25 +5,25 @@ using UnityEngine;
 
 namespace Game.Logic.Common
 {
-    public sealed class ObjectPool<T> : IDisposable where T : MonoBehaviour
+    public sealed class ObjectPool : IDisposable
     {
         private readonly IObjectResolver objectResolver;
 
-        private readonly T prefab;
+        private readonly GameObject prefab;
 
-        private readonly List<T> activeObjects;
-        private readonly List<T> inactiveObjects;
+        private readonly List<GameObject> activeObjects;
+        private readonly List<GameObject> inactiveObjects;
 
-        public ObjectPool(IObjectResolver objectResolver, T prefab, int initialSize = 0)
+        public ObjectPool(IObjectResolver objectResolver, GameObject prefab, int initialSize = 0)
         {
-            
             this.objectResolver = objectResolver;
-            activeObjects = new List<T>(initialSize);
-            inactiveObjects = new List<T>(initialSize);
+            activeObjects = new List<GameObject>(initialSize);
+            inactiveObjects = new List<GameObject>(initialSize);
 
             for (int i = 0; i < initialSize; ++i)
             {
-                T spawnedObject = objectResolver.CreateGameObjectInstance(prefab, Vector3.zero, Quaternion.identity);
+                GameObject spawnedObject =
+                    objectResolver.CreateGameObjectInstance(prefab, Vector3.zero, Quaternion.identity);
                 spawnedObject.gameObject.SetActive(false);
                 inactiveObjects[i] = spawnedObject;
             }
@@ -31,15 +31,16 @@ namespace Game.Logic.Common
             this.prefab = prefab;
         }
 
-        public T GetObject(Vector3 position, Quaternion rotation, Transform parent = null)
+        public GameObject GetObject(Vector3 position, Quaternion rotation, Transform parent = null)
         {
             if (inactiveObjects.Count == 0)
             {
-                T spawnedObject = objectResolver.CreateGameObjectInstance(prefab, position, rotation, parent);
+                GameObject spawnedObject = objectResolver.CreateGameObjectInstance(prefab, position, rotation, parent);
                 activeObjects.Add(spawnedObject);
                 return spawnedObject;
             }
-            T inactiveObject = inactiveObjects[0];
+
+            GameObject inactiveObject = inactiveObjects[0];
 
             var transform = inactiveObject.GetComponent<Transform>();
             transform.parent = parent;
@@ -52,7 +53,7 @@ namespace Game.Logic.Common
             return inactiveObject;
         }
 
-        public void ReceiveObject(T obj)
+        public void ReceiveObject(GameObject obj)
         {
             obj.gameObject.SetActive(false);
 
@@ -64,11 +65,15 @@ namespace Game.Logic.Common
         {
             for (var i = 0; i < activeObjects.Count; i++)
             {
+                Debug.Log($"disposing {activeObjects[i].name}");
+                objectResolver.UnbindObject(activeObjects[i]);
                 GameObject.Destroy(activeObjects[i]);
             }
 
             for (int i = 0; i < inactiveObjects.Count; i++)
             {
+                Debug.Log($"disposing {inactiveObjects[i].name}");
+                objectResolver.UnbindObject(inactiveObjects[i]);
                 GameObject.Destroy(inactiveObjects[i]);
             }
 

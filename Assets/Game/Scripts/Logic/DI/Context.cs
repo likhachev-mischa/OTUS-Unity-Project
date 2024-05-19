@@ -9,6 +9,11 @@ namespace DI
         protected GameManager gameManager;
         protected ServiceLocator serviceLocator;
 
+        public bool HasService(Type type)
+        {
+            return serviceLocator.HasService(type);
+        }
+
         public object GetService(Type type)
         {
             return serviceLocator.GetService(type);
@@ -22,6 +27,11 @@ namespace DI
         public void BindService(Type type, object service)
         {
             serviceLocator.BindService(type, service);
+        }
+
+        public void RemoveService(Type type)
+        {
+            serviceLocator.RemoveService(type);
         }
 
         protected void ExtractServices(object installer)

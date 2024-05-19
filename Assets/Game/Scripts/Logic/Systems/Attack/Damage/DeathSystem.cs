@@ -5,21 +5,18 @@ using Unity.Entities;
 
 namespace Game.Systems
 {
-    [UpdateInGroup(typeof(DamageCalculationSystemGroup))]
-    [RequireMatchingQueriesForUpdate]
+    [UpdateInGroup(typeof(DamageCalculationSystemGroup), OrderLast = true)]
     public partial struct DeathSystem : ISystem
     {
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<DealDamageEvent>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var eventQuery = SystemAPI.QueryBuilder().WithAll<DeathEvent>().Build();
-            state.EntityManager.DestroyEntity(eventQuery);
-
             var healthLookup = SystemAPI.GetComponentLookup<Health>();
             var ownerLookup = SystemAPI.GetComponentLookup<OwnerEntity>();
             var ecb = new EntityCommandBuffer(Allocator.Temp);
@@ -40,7 +37,7 @@ namespace Game.Systems
                 Entity @event = ecb.CreateEntity();
                 ecb.AddComponent(@event, new DeathEvent() { Killer = source, Killed = target });
             }
-            
+
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
         }

@@ -8,5 +8,8 @@ namespace Game.Visuals
         [SerializeField]
         [Listener]
         private PlayerViewAdapter playerViewAdapter;
+
+        [SerializeField]
+        private PlayerView playerView;
     }
 }

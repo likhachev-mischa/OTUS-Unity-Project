@@ -10,9 +10,14 @@ namespace Game.Visuals
 
         public event Action VisualsDrawn;
 
-        public void DrawVisuals()
+        public void DrawVisuals(ComponentToDraw component, string data)
         {
             VisualsDrawn?.Invoke();
+        }
+
+        public void DisableVisuals(ComponentToDraw component)
+        {
+            
         }
 
         private void OnEnable()

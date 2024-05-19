@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3418011884732149886}
   - component: {fileID: 3418011884735017054}
   - component: {fileID: 3418011884733919902}
-  - component: {fileID: 8506116166658223433}
   m_Layer: 0
   m_Name: 1HSword
   m_TagString: Untagged
@@ -84,15 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8506116166658223433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3418011884731919454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ade405d45f4c719c695bbd40fe1a15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

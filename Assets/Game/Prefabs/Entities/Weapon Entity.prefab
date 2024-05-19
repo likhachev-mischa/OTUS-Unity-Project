@@ -105,7 +105,7 @@ MonoBehaviour:
     Length: 3
     WeaponFlags: 0
   visualProxyAuthoringComponent:
-    ViewPrefab: {fileID: 8506116166658223433, guid: beb94a4d61f9d084a81e5c424ac87c86,
+    ViewPrefab: {fileID: 3418011884731919454, guid: beb94a4d61f9d084a81e5c424ac87c86,
       type: 3}
 --- !u!65 &1699977039614494360
 BoxCollider:

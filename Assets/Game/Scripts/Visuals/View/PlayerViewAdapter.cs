@@ -1,4 +1,5 @@
-﻿using DI;
+﻿using System.Globalization;
+using DI;
 using Game.Components;
 using Game.Utils;
 using Unity.Entities;
@@ -8,18 +9,39 @@ using UnityEngine;
 
 namespace Game.Visuals
 {
-    public sealed class PlayerViewAdapter : MonoBehaviour, IViewAdapter , IGameUpdateListener
+    public sealed class PlayerViewAdapter : MonoBehaviour, IViewAdapter, IGameUpdateListener
     {
         [SerializeField]
         public WeaponViewAdapter WeaponViewAdapter;
 
-        public Entity Entity { get; set; }
+        [SerializeField]
+        private PlayerView playerView;
 
-        public void DrawVisuals()
+        public Entity Entity
         {
-            
+            get => entity;
+            set
+            {
+                entity = value;
+                var health = entity.GetComponent<Health>().Value.ToString();
+                playerView.SetInitialHealth(health);
+                playerView.Draw(ComponentToDraw.HEALTH, health);
+            }
         }
 
+        private Entity entity;
+
+        public void DrawVisuals(ComponentToDraw component, string data)
+        {
+            playerView.Draw(component, data);
+        }
+
+        public void DisableVisuals(ComponentToDraw component)
+        {
+            playerView.Disable(component);
+        }
+
+#if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             Handles.color = new Color(1, 0, 0, 0.3f);
@@ -35,7 +57,6 @@ namespace Game.Visuals
 
             float delta = angles.StartPosition.Value + angle;
             delta *= -1;
-            //delta -= delta;
             delta *= math.TORADIANS;
             Vector3 position = transform.position;
             Vector3 forward = transform.forward;
@@ -48,7 +69,7 @@ namespace Game.Visuals
                 new Vector3(position.x, position.y + 1, position.z),
                 transform.up, direction, angle, length);
         }
-
+#endif
         public void OnUpdate(float deltaTime)
         {
         }

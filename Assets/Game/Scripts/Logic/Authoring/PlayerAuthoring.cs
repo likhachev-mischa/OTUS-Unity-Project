@@ -22,6 +22,9 @@ namespace Game.Authoring
         [SerializeField]
         public AttackTypeAuthoring attackTypeAuthoring;
 
+        [SerializeField]
+        public HealthAuthoringComponent healthAuthoringComponent;
+
         public sealed class Baker : Baker<PlayerAuthoring>
         {
             public override void Bake(PlayerAuthoring authoring)
@@ -33,6 +36,10 @@ namespace Game.Authoring
                 AddComponent<ControllableTag>(entity);
                 AddSharedComponent(entity,
                     new AttackCooldownShared() { Value = authoring.attackAuthoringComponent.Cooldown });
+
+                AddComponent(entity, new Health() { Value = authoring.healthAuthoringComponent.Health });
+
+                AddComponent(entity, new SpawnerIDComponent() { Value = SpawnerID.PLAYER });
 
                 this.BakeMovementComponent(entity, authoring.movementAuthoringComponent);
                 this.BakeVisualProxyComponent(entity, authoring.visualProxyAuthoringComponent);

@@ -8,5 +8,6 @@ namespace Game.Components
     {
         public Entity Killed;
         public Entity Killer;
+        public DeathInfo Info;
     }
 }

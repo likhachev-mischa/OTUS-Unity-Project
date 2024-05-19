@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Game/Scene/Loading.unity
     guid: ec20621754ba3964cb741cfd33df0605
   - enabled: 1
-    path: Assets/Game/Scene/Test.unity
+    path: Assets/Game/Scene/Game.unity
     guid: bbc0251899453604f9fead26df5d2bf1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 9a9565a6f7802514f8a94991ec9e42c0,

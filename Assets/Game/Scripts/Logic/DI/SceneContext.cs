@@ -8,9 +8,9 @@ namespace DI
     public sealed class SceneContext : Context
     {
         [SerializeField]
-        private GameInstallerContainer sceneInstallerContainer;
+        private GameInstallerContainer[] sceneInstallers;
 
-        private GameInstaller[] gameInstallers;
+        private List<GameInstaller> gameInstallers = new();
         private List<GameObjectInstaller> gameObjectInstallers = new();
 
         public void RegisterInstaller(GameObjectInstaller installer)
@@ -27,7 +27,14 @@ namespace DI
             this.serviceLocator = serviceLocator;
             this.gameManager = gameManager;
 
-            gameInstallers = sceneInstallerContainer.ProvideInstallers().ToArray();
+            foreach (GameInstallerContainer gameInstallerContainer in sceneInstallers)
+            {
+                IEnumerable<GameInstaller> installers = gameInstallerContainer.ProvideInstallers();
+                foreach (GameInstaller gameInstaller in installers)
+                {
+                    gameInstallers.Add(gameInstaller);
+                }
+            }
 
             foreach (GameInstaller installer in gameInstallers)
             {

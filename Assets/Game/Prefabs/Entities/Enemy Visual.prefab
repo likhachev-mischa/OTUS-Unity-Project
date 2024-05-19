@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4952437104634494063}
   - component: {fileID: 3370823229561755899}
   - component: {fileID: 252498720288380283}
-  - component: {fileID: -1713753008594271983}
+  - component: {fileID: 2678128067269822859}
+  - component: {fileID: 4621403066295784904}
   m_Layer: 0
   m_Name: Enemy Visual
   m_TagString: Untagged
@@ -177,7 +178,7 @@ MonoBehaviour:
   initialAnimationSpeed: 1
   animator: {fileID: 3370823229561755899}
   lerpFactor: 0.04
---- !u!114 &-1713753008594271983
+--- !u!114 &2678128067269822859
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,9 +187,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1992237935721306604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ade405d45f4c719c695bbd40fe1a15, type: 3}
+  m_Script: {fileID: 11500000, guid: 480eca9f5e7347488cf6f3f29d580494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dummyPrefab: {fileID: -2019606174104718304, guid: 21d70aaead19a324d9459e18a6c4e06f,
+    type: 3}
+--- !u!114 &4621403066295784904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992237935721306604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2466f4332a8a4d9ebef0076ceeaf7f8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dummySpawnerOnDeath: {fileID: 2678128067269822859}
 --- !u!1001 &3367355986072647355
 PrefabInstance:
   m_ObjectHideFlags: 0

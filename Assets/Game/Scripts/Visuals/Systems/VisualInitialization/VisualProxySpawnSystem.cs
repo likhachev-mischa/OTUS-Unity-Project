@@ -30,7 +30,7 @@ namespace Game.Visuals.Systems
             foreach (Entity entity in entityArray)
             {
                 var prefab = EntityManager.GetComponentData<VisualProxyPrefab>(entity);
-                var go = pool.GetObject(prefab.Value).gameObject;
+                var go = pool.SpawnObject(prefab.Value).gameObject;
 
                 Transform transform = go.transform;
                 EntityManager.AddComponentObject(entity, new VisualTransform() { Value = transform });

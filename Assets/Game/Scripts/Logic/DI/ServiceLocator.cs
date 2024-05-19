@@ -7,6 +7,11 @@ namespace DI
     {
         private readonly Dictionary<Type, object> services = new();
 
+        public bool HasService(Type type)
+        {
+            return services.ContainsKey(type);
+        }
+        
         public object GetService(Type type)
         {
             return services[type];

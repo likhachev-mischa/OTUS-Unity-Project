@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DI
@@ -6,10 +6,10 @@ namespace DI
     public sealed class ProjectContext : Context
     {
         [SerializeField]
-        private GameInstallerContainer projectInstallerContainer;
+        private GameInstallerContainer[] projectInstallerContainers;
 
         private SceneContext sceneContext;
-        private GameInstaller[] projectInstallers;
+        private readonly List<GameInstaller> projectInstallers = new();
 
         private ObjectResolver objectResolver;
 
@@ -18,8 +18,14 @@ namespace DI
         {
             Initialize();
 
-
-            projectInstallers = projectInstallerContainer.ProvideInstallers().ToArray();
+            foreach (GameInstallerContainer gameInstallerContainer in projectInstallerContainers)
+            {
+                IEnumerable<GameInstaller> installers = gameInstallerContainer.ProvideInstallers();
+                foreach (GameInstaller gameInstaller in installers)
+                {
+                    projectInstallers.Add(gameInstaller);
+                }
+            }
 
             foreach (GameInstaller installer in projectInstallers)
             {

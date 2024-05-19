@@ -31,9 +31,10 @@ namespace Game.Authoring
             public override void Bake(EnemyAuthoring authoring)
             {
                 Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
+                AddComponent<SpawnerIDComponent>(entity);
                 AddComponent(entity, new TeamComponent() { Value = Team.ENEMY });
-                AddComponent(entity, new Health(){Value = authoring.healthAuthoringComponent.Health});
-            this.BakeMovementComponent(entity, authoring.movementAuthoringComponent);
+                AddComponent(entity, new Health() { Value = authoring.healthAuthoringComponent.Health });
+                this.BakeMovementComponent(entity, authoring.movementAuthoringComponent);
                 this.BakeVisualProxyComponent(entity, authoring.visualProxyAuthoringComponent);
                 // this.BakeWeaponComponent(entity, authoring.weaponAuthoringComponent);
             }

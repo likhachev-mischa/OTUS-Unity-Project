@@ -14,5 +14,9 @@ namespace Game.Logic.Installers
 
         [GameInstaller]
         private WorldBootstrapInstaller worldBootstrapInstaller = new();
+
+        [SerializeField]
+        [GameInstaller]
+        private SpawnerInstaller spawnerInstaller;
     }
 }

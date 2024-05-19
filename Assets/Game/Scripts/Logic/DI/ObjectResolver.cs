@@ -23,6 +23,7 @@ namespace DI
             T instance = new();
             if (instance is IGameListener listener)
             {
+                
                 manager.AddListener(listener);
                 listeners.Add(listener);
             }
@@ -31,7 +32,7 @@ namespace DI
             return instance;
         }
 
-        public T CreateGameObjectInstance<T>(T prefab, Vector3 position, Quaternion rotation,
+        public T CreateMonoBehaviourInstance<T>(T prefab, Vector3 position, Quaternion rotation,
             Transform parentTransform = null) where T : MonoBehaviour
         {
             T instance = GameObject.Instantiate(prefab, position, rotation, parentTransform);
@@ -53,6 +54,14 @@ namespace DI
             }
 
             return instance;
+        }
+
+        public void UnbindObject<T>(T obj)
+        {
+            if (obj is IGameListener listener)
+            {
+                listeners.Remove(listener);
+            }
         }
 
         public void Dispose()

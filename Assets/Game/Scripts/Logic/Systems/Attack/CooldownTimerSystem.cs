@@ -1,6 +1,7 @@
 ﻿using Game.Components;
 using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
 
 namespace Game.Systems
 {
@@ -16,11 +17,13 @@ namespace Game.Systems
         public void OnUpdate(ref SystemState state)
         {
             float deltaTime = SystemAPI.Time.DeltaTime;
-            foreach ((RefRW<AttackStates> attackState, RefRW<AttackCooldown> attackCooldown, Entity entity) in SystemAPI
-                         .Query<RefRW<AttackStates>, RefRW<AttackCooldown>>().WithEntityAccess())
+            var cooldownLookup = SystemAPI.GetComponentLookup<AttackCooldown>();
+            foreach ((RefRW<AttackStates> attackState, Entity entity) in SystemAPI
+                         .Query<RefRW<AttackStates>>().WithEntityAccess())
             {
                 if (attackState.ValueRO.IsOnCooldown)
                 {
+                    var attackCooldown = cooldownLookup.GetRefRW(entity);
                     if (attackCooldown.ValueRO.Value <= 0)
                     {
                         attackCooldown.ValueRW.Value =
@@ -29,7 +32,7 @@ namespace Game.Systems
                     }
                     else
                     {
-                        attackCooldown.ValueRW.Value -= deltaTime;
+                        attackCooldown.ValueRW.Value = math.max(0, attackCooldown.ValueRO.Value - deltaTime);
                     }
                 }
             }

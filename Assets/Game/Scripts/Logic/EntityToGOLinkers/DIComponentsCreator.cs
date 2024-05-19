@@ -37,9 +37,11 @@ namespace Game.Logic
 
         private void CreateObjectPoolComponent(EntityManager manager)
         {
+            ObjectPoolDirectory objectPoolDirectory = new(objectResolver);
+            context.BindService(typeof(ObjectPoolDirectory), objectPoolDirectory);
             Entity entity = manager.CreateEntity();
             manager.AddComponentObject(entity,
-                new ObjectPoolComponent() { Value = new ObjectPoolDirectory(objectResolver) });
+                new ObjectPoolComponent() { Value = objectPoolDirectory });
         }
     }
 }

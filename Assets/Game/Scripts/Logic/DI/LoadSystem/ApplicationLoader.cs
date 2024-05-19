@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DI;
 using UnityEngine;
@@ -13,7 +12,6 @@ namespace LoadSystem
 
         [SerializeField]
         private ProjectContext projectContext;
-
 
         private void Start()
         {

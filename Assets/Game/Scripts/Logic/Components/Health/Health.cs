@@ -6,6 +6,6 @@ namespace Game.Components
     [Serializable]
     public struct Health : IComponentData
     {
-        public float Value;
+        public int Value;
     }
 }
