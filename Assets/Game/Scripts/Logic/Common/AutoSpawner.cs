@@ -15,10 +15,10 @@ namespace Game.Logic.Common
         private float delay = 5;
 
         [SerializeField]
-        private int minHealth;
+        private int minHealth = 5;
 
         [SerializeField]
-        private int maxHealth;
+        private int maxHealth = 20;
 
         [SerializeField]
         private Transform[] spawnPoints;

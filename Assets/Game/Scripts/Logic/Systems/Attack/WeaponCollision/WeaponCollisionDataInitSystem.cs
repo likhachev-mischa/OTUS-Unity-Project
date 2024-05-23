@@ -40,6 +40,10 @@ namespace Game.Systems
         [BurstCompile]
         public void OnDestroy(ref SystemState state)
         {
+            foreach (RefRW<WeaponCollisionData> weaponCollisionData in SystemAPI.Query<RefRW<WeaponCollisionData>>())
+            {
+                weaponCollisionData.ValueRW.CollidedEntities.Dispose();
+            }
         }
     }
 }

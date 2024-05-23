@@ -4,7 +4,7 @@ using Unity.Transforms;
 
 namespace SaveSystem.Components 
 {
-    public readonly partial struct EntityiSaveAspect : IAspect
+    public readonly partial struct EntitySaveAspect : IAspect
     {
         public readonly Entity Self;
         public readonly RefRO<LocalTransform> Transform;

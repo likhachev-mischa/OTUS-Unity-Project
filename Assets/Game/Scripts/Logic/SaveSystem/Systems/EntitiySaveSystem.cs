@@ -20,14 +20,14 @@ namespace SaveSystem.Systems
             foreach ((EntitySaveEvent entitySaveEvent, Entity eventEntity) in SystemAPI.Query<EntitySaveEvent>()
                          .WithEntityAccess())
             {
-                var enemyQuery = SystemAPI.QueryBuilder().WithAspect<EntityiSaveAspect>().Build();
+                var enemyQuery = SystemAPI.QueryBuilder().WithAspect<EntitySaveAspect>().Build();
                 var spawnData = new EntitySpawnData[enemyQuery.CalculateEntityCount()];
                 var enemyArray = enemyQuery.ToEntityArray(Allocator.Temp);
 
                 int index = 0;
                 foreach (Entity entity in enemyArray)
                 {
-                    var aspect = SystemAPI.GetAspect<EntityiSaveAspect>(entity);
+                    var aspect = SystemAPI.GetAspect<EntitySaveAspect>(entity);
                     spawnData[index] = new EntitySpawnData(aspect.Transform.ValueRO, aspect.Health.ValueRO,
                         aspect.SpawnerID.ValueRO.Value);
                     ++index;

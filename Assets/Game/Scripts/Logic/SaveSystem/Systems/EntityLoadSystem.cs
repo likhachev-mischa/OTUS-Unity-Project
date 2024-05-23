@@ -23,7 +23,7 @@ namespace SaveSystem.Systems
             state.EntityManager.DestroyEntity(eventQuery);
 
             var ecb = new EntityCommandBuffer(Allocator.Temp);
-            foreach (EntityiSaveAspect entitySaveAspect in SystemAPI.Query<EntityiSaveAspect>())
+            foreach (EntitySaveAspect entitySaveAspect in SystemAPI.Query<EntitySaveAspect>())
             {
                 var deathEventEntity = ecb.CreateEntity();
                 ecb.AddComponent<DeathEvent>(deathEventEntity);

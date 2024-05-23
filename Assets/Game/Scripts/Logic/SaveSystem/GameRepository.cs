@@ -77,7 +77,7 @@ namespace SaveSystem
             }
 
             fileStream = new FileStream(SAVE_FILE_PATH, FileMode.Open);
-
+            
             using (var binaryReader = new BinaryReader(fileStream))
             {
                 aesKey = binaryReader.ReadBytes(32);
