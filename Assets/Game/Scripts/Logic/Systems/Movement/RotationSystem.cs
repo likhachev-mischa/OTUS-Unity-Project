@@ -14,13 +14,14 @@ namespace Game.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<GlobalPauseComponent>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             EntityQuery query = SystemAPI.QueryBuilder().WithAllRW<LocalTransform>()
-                .WithAll<RotationDirection, RotationSpeed>()
+                .WithAll<RotationDirection, RotationSpeed, MovementFlags>()
                 .Build();
             float deltaTime = SystemAPI.Time.DeltaTime;
 
@@ -42,8 +43,14 @@ namespace Game.Systems
         [ReadOnly]
         public float deltaTime;
 
-        private void Execute(ref LocalTransform transform, in RotationDirection direction, in RotationSpeed speed)
+        private void Execute(ref LocalTransform transform, in RotationDirection direction, in RotationSpeed speed,
+            in MovementFlags movementFlags)
         {
+            if (!movementFlags.CanMove)
+            {
+                return;
+            }
+
             float3 normal = transform.Forward();
             float currentAngle = math.atan2(normal.z, normal.x);
 

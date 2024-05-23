@@ -37,7 +37,8 @@ namespace Game.Authoring
                 AddSharedComponent(entity,
                     new AttackCooldownShared() { Value = authoring.attackAuthoringComponent.Cooldown });
 
-                AddComponent(entity, new Health() { Value = authoring.healthAuthoringComponent.Health });
+                AddComponent(entity,
+                    new Health() { Value = authoring.healthAuthoringComponent.Health });
 
                 AddComponent(entity, new SpawnerIDComponent() { Value = SpawnerID.PLAYER });
 

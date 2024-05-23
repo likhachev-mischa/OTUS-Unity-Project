@@ -17,15 +17,13 @@ namespace Game.Systems
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var query = SystemAPI.QueryBuilder().WithAll<AttackStartedEvent>().Build();
-            var eventArray = query.ToEntityArray(Allocator.Temp);
-            var eventLookup = SystemAPI.GetComponentLookup<AttackStartedEvent>();
             var weaponLookup = SystemAPI.GetComponentLookup<WeaponEntity>();
             var inactiveLookup = SystemAPI.GetComponentLookup<Inactive>();
 
-            foreach (Entity entity in eventArray)
+            var ecb = new EntityCommandBuffer(Allocator.Temp);
+            foreach (RefRO<AttackStartedEvent> attackStartedEvent in SystemAPI.Query<RefRO<AttackStartedEvent>>())
             {
-                var source = eventLookup.GetRefRO(entity).ValueRO.Source;
+                var source = attackStartedEvent.ValueRO.Source;
                 if (!weaponLookup.TryGetComponent(source, out WeaponEntity weaponEntity))
                 {
                     continue;
@@ -33,11 +31,12 @@ namespace Game.Systems
 
                 if (inactiveLookup.HasComponent(weaponEntity.Value))
                 {
-                    state.EntityManager.RemoveComponent<Inactive>(weaponEntity.Value);
+                    ecb.RemoveComponent<Inactive>(weaponEntity.Value);
                 }
             }
+            ecb.Playback(state.EntityManager);
+            ecb.Dispose();
 
-            eventArray.Dispose();
         }
 
         [BurstCompile]

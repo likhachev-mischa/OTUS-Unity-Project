@@ -9,6 +9,6 @@ namespace SaveSystem.Installers
         private SystemGameSaver systemGameSaver = new();
 
         [ServiceCollection(typeof(IGameSaver))]
-        private EnemyGameSaver enemyGameSaver = new();
+        private EnemyPlayerGameSaver enemyPlayerGameSaver = new();
     }
 }

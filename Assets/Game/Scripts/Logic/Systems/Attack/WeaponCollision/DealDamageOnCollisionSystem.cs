@@ -11,7 +11,7 @@ namespace Game.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            state.RequireForUpdate<AttackCollisionEvent>();
+            state.RequireForUpdate<AttackEvent>();
         }
 
         [BurstCompile]
@@ -21,7 +21,7 @@ namespace Game.Systems
             var damageLookup = SystemAPI.GetComponentLookup<Damage>();
             var ecb = new EntityCommandBuffer(Allocator.Temp);
 
-            foreach (RefRO<AttackCollisionEvent> attackCollisionEvent in SystemAPI.Query<RefRO<AttackCollisionEvent>>())
+            foreach (RefRO<AttackEvent> attackCollisionEvent in SystemAPI.Query<RefRO<AttackEvent>>())
             {
                 Entity weapon = attackCollisionEvent.ValueRO.Source;
                 Entity target = attackCollisionEvent.ValueRO.Target;

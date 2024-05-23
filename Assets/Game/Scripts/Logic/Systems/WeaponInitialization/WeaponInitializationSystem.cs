@@ -4,7 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 
-namespace Game.Systems.WeaponInitialization
+namespace Game.Systems
 {
     [UpdateInGroup(typeof(WeaponInitializationSystemGroup), OrderFirst = true)]
     public partial struct WeaponInitializationSystem : ISystem

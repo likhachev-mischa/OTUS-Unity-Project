@@ -7,10 +7,13 @@ namespace Game.Visuals
     {
         [SerializeField]
         private Slider slider;
+        
+        public bool IsInitialized { get; private set; }
 
         public void SetInitialHealth(string value)
         {
             slider.maxValue = float.Parse(value);
+            IsInitialized = true;
         }
 
         public void DrawHealth(string value)

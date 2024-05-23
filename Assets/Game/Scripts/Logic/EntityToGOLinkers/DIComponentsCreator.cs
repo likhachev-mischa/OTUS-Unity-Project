@@ -10,13 +10,16 @@ namespace Game.Logic
         private WorldRegistry worldRegistry;
         private Context context;
         private IObjectResolver objectResolver;
+        private GameManager gameManager;
 
         [Inject]
-        private void Construct(WorldRegistry worldRegistry, Context context, IObjectResolver objectResolver)
+        private void Construct(WorldRegistry worldRegistry, Context context, IObjectResolver objectResolver,
+            GameManager gameManager)
         {
             this.worldRegistry = worldRegistry;
             this.context = context;
             this.objectResolver = objectResolver;
+            this.gameManager = gameManager;
         }
 
         void IInitializable.Initialize()
@@ -32,7 +35,8 @@ namespace Game.Logic
         {
             Entity entity = manager.CreateEntity();
             manager.AddComponentObject(entity,
-                new ContextComponent() { Context = context, ObjectResolver = objectResolver });
+                new ContextComponent()
+                    { Context = context, ObjectResolver = objectResolver, gameManager = gameManager });
         }
 
         private void CreateObjectPoolComponent(EntityManager manager)

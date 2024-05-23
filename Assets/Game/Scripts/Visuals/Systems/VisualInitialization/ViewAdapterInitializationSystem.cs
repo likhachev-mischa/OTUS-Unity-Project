@@ -22,7 +22,7 @@ namespace Game.Visuals.Systems
                          .Query<RefRO<VisualProxySpawnRequest>, VisualTransform>()
                          .WithEntityAccess())
             {
-                if (!visualProxy.Value.TryGetComponent(out PlayerViewAdapter adapter))
+                if (!visualProxy.Value.TryGetComponent(out IViewAdapter adapter))
                 {
                     continue;
                 }

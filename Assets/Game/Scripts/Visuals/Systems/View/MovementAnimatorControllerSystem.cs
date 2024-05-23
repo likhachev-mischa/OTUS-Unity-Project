@@ -20,7 +20,8 @@ namespace Game.Visuals.Systems
             var moveStateSetJob = new AnimatorMoveStateSetJob();
             moveStateSetJob.Run(stateQuery);
 
-            EntityQuery speedQuery = SystemAPI.QueryBuilder().WithAll<MovementSpeed>().WithAll<VisualAnimator>().Build();
+            EntityQuery speedQuery =
+                SystemAPI.QueryBuilder().WithAll<MovementSpeed>().WithAll<VisualAnimator>().Build();
 
             var speedSetJob = new AnimatorSpeedSetJob();
             speedSetJob.Run(speedQuery);
@@ -28,7 +29,8 @@ namespace Game.Visuals.Systems
             EntityQuery directionQuery = SystemAPI.QueryBuilder().WithAll<MovementDirection, LocalTransform>()
                 .WithAll<VisualAnimator>().Build();
 
-            var directionSetJob = new AnimatorDirectionSetJob();
+            var directionSetJob = new AnimatorDirectionSetJob()
+                { MovementFlagsLookup = SystemAPI.GetComponentLookup<MovementFlags>() };
             directionSetJob.Run(directionQuery);
         }
     }
@@ -51,12 +53,24 @@ namespace Game.Visuals.Systems
 
     public partial struct AnimatorDirectionSetJob : IJobEntity
     {
-        private void Execute(in MovementDirection direction, in LocalTransform transform, VisualAnimator animator)
+        public ComponentLookup<MovementFlags> MovementFlagsLookup;
+
+        private void Execute(in MovementDirection direction, in LocalTransform transform, VisualAnimator animator,
+            Entity entity)
         {
             if (direction.Value.Equals(float3.zero))
             {
                 animator.Value.SetDirection(0, 0);
                 return;
+            }
+
+            if (MovementFlagsLookup.TryGetComponent(entity, out MovementFlags movementFlags))
+            {
+                if (movementFlags.IsMoving == false)
+                {
+                    animator.Value.SetDirection(0, 0);
+                    return;
+                }
             }
 
             var vector = new float2(direction.Value.x, direction.Value.z);

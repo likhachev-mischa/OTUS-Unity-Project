@@ -21,7 +21,7 @@ namespace Game.Visuals.Systems
             var poolQuery = SystemAPI.QueryBuilder().WithAll<ObjectPoolComponent>().Build();
             var pool = poolQuery.GetSingleton<ObjectPoolComponent>().Value;
 
-            EntityCommandBuffer ecb = singleton.CreateCommandBuffer(World.Unmanaged);
+            EntityCommandBuffer delayedEcb = singleton.CreateCommandBuffer(World.Unmanaged);
             EntityQuery query = SystemAPI.QueryBuilder().WithAll<VisualProxySpawnRequest>().WithAll<VisualProxyPrefab>()
                 .Build();
 
@@ -34,7 +34,7 @@ namespace Game.Visuals.Systems
 
                 Transform transform = go.transform;
                 EntityManager.AddComponentObject(entity, new VisualTransform() { Value = transform });
-                ecb.RemoveComponent<VisualProxySpawnRequest>(entity);
+                delayedEcb.RemoveComponent<VisualProxySpawnRequest>(entity);
             }
 
             entityArray.Dispose();

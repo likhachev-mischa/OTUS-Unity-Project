@@ -7,6 +7,6 @@ namespace Game.Components
     [Serializable]
     public struct EnemySpawnRequest : IComponentData
     {
-        public EnemySpawnData SpawnData;
+        public EntitySpawnData SpawnData;
     }
 }

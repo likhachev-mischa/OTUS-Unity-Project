@@ -32,6 +32,7 @@ namespace Game.Systems
             attackAction.performed += OnAttackPressed;
 
             RequireForUpdate<ContextComponent>();
+            RequireForUpdate<GlobalPauseComponent>();
         }
 
         private void OnMouseMoved(InputAction.CallbackContext obj)

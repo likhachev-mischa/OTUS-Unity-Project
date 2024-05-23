@@ -26,19 +26,19 @@ namespace Game.Visuals.Systems
                          var viewAdapter) in SystemAPI
                          .Query<RefRO<WeaponInitializationRequest>, RefRO<WeaponEntity>, ViewAdapterComponent>())
             {
-                if (viewAdapter.Value is not PlayerViewAdapter entityViewAdapter)
+                if (viewAdapter.Value is not IWeaponViewAdapterContainer weaponAdapterContainer)
                 {
                     continue;
                 }
 
-                IViewAdapter weaponAdapter = entityViewAdapter.WeaponViewAdapter;
+                IViewAdapter weaponAdapter = weaponAdapterContainer.WeaponViewAdapter;
                 weaponAdapter.Entity = weaponEntity.ValueRO.Value;
                 ecb.AddComponent(weaponEntity.ValueRO.Value,
                     new ViewAdapterComponent() { Value = weaponAdapter });
 
                 if (EntityManager.HasComponent<VisualProxyPrefab>(weaponEntity.ValueRO.Value))
                 {
-                    var transform = entityViewAdapter.WeaponViewAdapter.transform;
+                    var transform = weaponAdapterContainer.WeaponViewAdapter.transform;
                     pool.Value.SpawnObject(EntityManager.GetComponentData<VisualProxyPrefab>(weaponEntity.ValueRO.Value)
                         .Value, transform.position, transform.rotation, transform);
                 }

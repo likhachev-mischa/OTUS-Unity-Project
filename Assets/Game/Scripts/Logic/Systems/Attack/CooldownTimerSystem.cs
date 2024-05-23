@@ -2,6 +2,7 @@
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
+using UnityEditor;
 
 namespace Game.Systems
 {
@@ -11,6 +12,7 @@ namespace Game.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<GlobalPauseComponent>();
         }
 
         [BurstCompile]

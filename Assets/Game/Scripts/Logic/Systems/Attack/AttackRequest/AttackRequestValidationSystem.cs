@@ -12,6 +12,7 @@ namespace Game.Systems
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<AttackRequest>();
+            state.RequireForUpdate<GlobalPauseComponent>();
         }
 
         [BurstCompile]

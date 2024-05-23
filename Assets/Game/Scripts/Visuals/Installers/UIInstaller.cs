@@ -11,5 +11,9 @@ namespace Game.Scripts.Visuals.Installers
         [SerializeField]
         [Service(typeof(PlayerUI))]
         private PlayerUI playerUI;
+
+        [SerializeField]
+        [Listener]
+        private DeathScreenAdapter deathScreenAdapter;
     }
 }

@@ -23,7 +23,6 @@ namespace DI
             T instance = new();
             if (instance is IGameListener listener)
             {
-                
                 manager.AddListener(listener);
                 listeners.Add(listener);
             }
@@ -56,10 +55,19 @@ namespace DI
             return instance;
         }
 
+        public void UnbindObject(GameObject obj)
+        {
+            if (obj.TryGetComponent(out GameObjectInstaller installer))
+            {
+                context.RemoveInstaller(installer);
+            }
+        }
+
         public void UnbindObject<T>(T obj)
         {
             if (obj is IGameListener listener)
             {
+                manager.RemoveListener(listener);
                 listeners.Remove(listener);
             }
         }

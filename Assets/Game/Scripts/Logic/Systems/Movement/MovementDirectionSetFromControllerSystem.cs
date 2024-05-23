@@ -14,6 +14,7 @@ namespace Game.Systems
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<MoveDirectionController>();
+            state.RequireForUpdate<GlobalPauseComponent>();
         }
 
         [BurstCompile]

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -1675586650195060246}
   - component: {fileID: -5144460581399558204}
   - component: {fileID: 3533022014952470184}
+  - component: {fileID: -8078022059930623411}
   m_Layer: 8
   m_Name: Enemy Entity
   m_TagString: Untagged
@@ -76,8 +77,15 @@ MonoBehaviour:
       m_RotationOrder: 4
     CurvePrecision: 0.1
   visualProxyAuthoringComponent:
-    ViewPrefab: {fileID: 1992237935721306604, guid: 12cc1e0b190bcfa48a7e2a38abfe0757,
+    ViewPrefab: {fileID: 1992237935721306604, guid: 2721b8ac4ff929247889192623ed0f77,
       type: 3}
+  weaponAuthoringComponent:
+    weapon: {fileID: -590006935267049688, guid: 1f22f00553f3de04591a46b8d61c7e71,
+      type: 3}
+  attackAuthoringComponent:
+    CanAttack: 1
+    Cooldown: 5
+  attackTypeAuthoring: {fileID: -8078022059930623411}
   healthAuthoringComponent:
     Health: 15
 --- !u!136 &-5144460581399558204
@@ -130,3 +138,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8078022059930623411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5017275681616359820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df8bc0fc97448f9bf68248f4720bfc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startAngle: 90
+  traversalAngle: 180

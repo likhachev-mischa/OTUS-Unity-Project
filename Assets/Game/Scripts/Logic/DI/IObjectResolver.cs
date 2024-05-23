@@ -12,7 +12,8 @@ namespace DI
 
         GameObject CreateGameObjectInstance(GameObject prefab, Vector3 position, Quaternion rotation,
             Transform parent = null);
-        
+
+        void UnbindObject(GameObject obj);
         void UnbindObject<T>(T obj);
     }
 }

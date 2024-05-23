@@ -18,7 +18,7 @@ namespace Game.Systems
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var query = SystemAPI.QueryBuilder().WithAll<AttackFinishedEvent>().Build();
+            /*var query = SystemAPI.QueryBuilder().WithAll<AttackFinishedEvent>().Build();
             var array = query.ToEntityArray(Allocator.Temp);
             var eventLookup = SystemAPI.GetComponentLookup<AttackFinishedEvent>();
             var weaponLookup = SystemAPI.GetComponentLookup<WeaponEntity>();
@@ -42,7 +42,7 @@ namespace Game.Systems
             }
 
 
-            array.Dispose();
+            array.Dispose();*/
         }
 
         [BurstCompile]

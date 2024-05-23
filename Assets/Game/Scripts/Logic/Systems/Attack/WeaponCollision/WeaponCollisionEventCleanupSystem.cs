@@ -10,13 +10,13 @@ namespace Game.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            state.RequireForUpdate<AttackCollisionEvent>();
+            state.RequireForUpdate<AttackEvent>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var query = SystemAPI.QueryBuilder().WithAll<AttackCollisionEvent>().Build();
+            var query = SystemAPI.QueryBuilder().WithAll<AttackEvent>().Build();
             state.Dependency.Complete();
             state.EntityManager.DestroyEntity(query);
         }

@@ -9,5 +9,6 @@ namespace Game.Components
     {
         public Context Context;
         public IObjectResolver ObjectResolver;
+        public GameManager gameManager;
     }
 }

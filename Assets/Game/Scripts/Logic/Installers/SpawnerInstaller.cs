@@ -1,6 +1,6 @@
 ﻿using System;
 using DI;
-using Game.Authoring;
+using Game.Logic.Common;
 using UnityEngine;
 
 namespace Game.Logic.Installers
@@ -11,5 +11,9 @@ namespace Game.Logic.Installers
         [SerializeField]
         [Service(typeof(SpawnerController))]
         private SpawnerController spawnerController;
+
+        [SerializeField]
+        [Listener]
+        private AutoSpawner autoSpawner;
     }
 }

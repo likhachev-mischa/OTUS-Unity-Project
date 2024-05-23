@@ -9,10 +9,10 @@ using UnityEngine;
 
 namespace Game.Visuals
 {
-    public sealed class PlayerViewAdapter : MonoBehaviour, IViewAdapter, IGameUpdateListener
+    public sealed class PlayerViewAdapter : MonoBehaviour, IViewAdapter, IWeaponViewAdapterContainer
     {
-        [SerializeField]
-        public WeaponViewAdapter WeaponViewAdapter;
+        [field: SerializeField]
+        public WeaponViewAdapter WeaponViewAdapter { get; private set; }
 
         [SerializeField]
         private PlayerView playerView;
@@ -24,7 +24,11 @@ namespace Game.Visuals
             {
                 entity = value;
                 var health = entity.GetComponent<Health>().Value.ToString();
-                playerView.SetInitialHealth(health);
+                if (!playerView.IsInitialized)
+                {
+                    playerView.SetInitialHealth(health);
+                }
+
                 playerView.Draw(ComponentToDraw.HEALTH, health);
             }
         }

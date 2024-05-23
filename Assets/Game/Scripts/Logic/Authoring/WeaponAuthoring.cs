@@ -25,13 +25,11 @@ namespace Game.Authoring
                 Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
 
                 this.BakeWeaponStatsComponent(entity, authoring.weaponStatsAuthoringComponent);
-                //this.BakeVisualProxyComponent(entity, authoring.visualProxyAuthoringComponent);
                 AddComponentObject(entity,
                     new VisualProxyPrefab() { Value = authoring.visualProxyAuthoringComponent.ViewPrefab });
 
-
-                AddComponent<CachedWeaponCollisionFilter>(entity);
-
+                AddComponent(entity, new StaggerSource() { Duration = 2 });
+                AddComponent<WeaponTag>(entity);
                 AddComponent(entity,
                     new Damage { Value = authoring.damageAuthoringComponent.Damage });
 

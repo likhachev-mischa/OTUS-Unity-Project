@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77dd9378b6d4b6dbddf9381ae86d2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponViewAdapter: {fileID: 8954073665985129240}
+  <WeaponViewAdapter>k__BackingField: {fileID: 8954073665985129240}
   playerView: {fileID: 3110770665780656229}
 --- !u!114 &3110770665780656229
 MonoBehaviour:

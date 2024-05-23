@@ -18,6 +18,7 @@ namespace Game.Systems
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<MousePositionController>();
+            state.RequireForUpdate<GlobalPauseComponent>();
             cachedMousePosition = float2.zero;
         }
 

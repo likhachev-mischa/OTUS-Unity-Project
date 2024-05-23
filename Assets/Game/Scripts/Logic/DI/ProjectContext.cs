@@ -59,7 +59,6 @@ namespace DI
             sceneContext.Inject();
             gameManager.Initialize();
             gameManager.LateLoad();
-            gameManager.StartGame();
         }
 
         public void UnloadScene()

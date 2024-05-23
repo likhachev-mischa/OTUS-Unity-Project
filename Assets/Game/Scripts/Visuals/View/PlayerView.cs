@@ -6,12 +6,14 @@ namespace Game.Visuals
 {
     public sealed class PlayerView : MonoBehaviour
     {
+        public bool IsInitialized { get; private set; }
         private PlayerUI playerUI;
 
         [Inject]
         private void Construct(PlayerUI playerUI)
         {
             this.playerUI = playerUI;
+            IsInitialized = this.playerUI.HealthUI.IsInitialized;
         }
 
         public void SetInitialHealth(string value)

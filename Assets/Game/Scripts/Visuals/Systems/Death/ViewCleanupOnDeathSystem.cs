@@ -45,9 +45,11 @@ namespace Game.Visuals.Systems
 
                     dummyDataLookup.Add(indexCounter,
                         new DummyData() { obj = obj, prefab = dummySpawnerOnDeath.dummyPrefab.gameObject });
-                    ++indexCounter;
 
                     var dummy = obj.GetComponent<Dummy>();
+                    dummy.Index = indexCounter;
+                    ++indexCounter;
+
                     dummy.Disabled += OnDummyDeath;
                 }
 

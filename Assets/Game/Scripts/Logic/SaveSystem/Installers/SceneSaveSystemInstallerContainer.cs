@@ -1,4 +1,5 @@
 ﻿using DI;
+using UnityEngine;
 
 namespace SaveSystem.Installers
 {
@@ -6,5 +7,9 @@ namespace SaveSystem.Installers
     {
         [GameInstaller]
         private GameSaversInstaller gameSaversInstaller = new();
+
+        [GameInstaller]
+        [SerializeField]
+        private SaveLoadManagerInstaller saveLoadManagerInstaller = new();
     }
 }

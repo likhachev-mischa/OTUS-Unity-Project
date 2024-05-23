@@ -13,12 +13,14 @@ namespace Game.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<GlobalPauseComponent>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            EntityQuery query = SystemAPI.QueryBuilder().WithAllRW<LocalTransform>().WithAll<MovementSpeed, MovementDirection>()
+            EntityQuery query = SystemAPI.QueryBuilder().WithAllRW<LocalTransform>()
+                .WithAll<MovementSpeed, MovementDirection, MovementFlags>()
                 .Build();
             float deltaTime = SystemAPI.Time.DeltaTime;
             var job = new TransformMoveJob() { deltaTime = deltaTime };
@@ -38,9 +40,13 @@ namespace Game.Systems
         [ReadOnly]
         public float deltaTime;
 
-        private void Execute(ref LocalTransform transform, in MovementSpeed movementSpeed, in MovementDirection direction)
+        private void Execute(ref LocalTransform transform, in MovementSpeed movementSpeed,
+            in MovementDirection direction, in MovementFlags movementFlags)
         {
-            transform = transform.Translate(direction.Value * movementSpeed.Value * deltaTime);
+            if (movementFlags.IsMoving)
+            {
+                transform = transform.Translate(direction.Value * movementSpeed.Value * deltaTime);
+            }
         }
     }
 }

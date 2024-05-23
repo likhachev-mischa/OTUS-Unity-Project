@@ -65,14 +65,12 @@ namespace Game.Logic.Common
         {
             for (var i = 0; i < activeObjects.Count; i++)
             {
-                Debug.Log($"disposing {activeObjects[i].name}");
                 objectResolver.UnbindObject(activeObjects[i]);
                 GameObject.Destroy(activeObjects[i]);
             }
 
             for (int i = 0; i < inactiveObjects.Count; i++)
             {
-                Debug.Log($"disposing {inactiveObjects[i].name}");
                 objectResolver.UnbindObject(inactiveObjects[i]);
                 GameObject.Destroy(inactiveObjects[i]);
             }

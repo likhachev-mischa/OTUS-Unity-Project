@@ -2,7 +2,6 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using UnityEngine;
 
 namespace Game.Systems
 {
@@ -12,7 +11,7 @@ namespace Game.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            state.RequireForUpdate<AttackCollisionEvent>();
+            state.RequireForUpdate<AttackEvent>();
         }
 
         [BurstCompile]
@@ -20,10 +19,17 @@ namespace Game.Systems
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);
             var collisionDataLookup = SystemAPI.GetComponentLookup<WeaponCollisionData>();
-            foreach (var (@event, eventEntity) in SystemAPI.Query<RefRO<AttackCollisionEvent>>().WithEntityAccess())
+            var inactiveLookup = SystemAPI.GetComponentLookup<Inactive>();
+            foreach (var (@event, eventEntity) in SystemAPI.Query<RefRO<AttackEvent>>().WithEntityAccess())
             {
                 if (!collisionDataLookup.HasComponent(@event.ValueRO.Source))
                 {
+                    continue;
+                }
+
+                if (inactiveLookup.HasComponent(@event.ValueRO.Source))
+                {
+                    ecb.DestroyEntity(eventEntity);
                     continue;
                 }
 

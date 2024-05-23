@@ -1,13 +1,14 @@
+using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DI;
 using SaveSystem.GameSavers;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace SaveSystem
 {
-    public sealed class SaveLoadManager : MonoBehaviour
+    [Serializable]
+    public sealed class SaveLoadManager : IGameStartListener
     {
         private GameRepository gameRepository;
         private IGameSaver[] gameSavers;
@@ -22,7 +23,7 @@ namespace SaveSystem
         }
 
         [Button]
-        public async void Save()
+        public async UniTaskVoid Save()
         {
             Task[] tasks = new Task[gameSavers.Length];
             for (var i = 0; i < gameSavers.Length; i++)
@@ -36,7 +37,7 @@ namespace SaveSystem
         }
 
         [Button]
-        public async void Load()
+        public async UniTaskVoid Load()
         {
             gameRepository.GetState();
             Task[] tasks = new Task[gameSavers.Length];
@@ -47,6 +48,11 @@ namespace SaveSystem
             }
 
             await Task.WhenAll(tasks);
+        }
+
+        void IGameStartListener.OnStart()
+        {
+            Load().Forget();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Game.Visuals.Systems
                          .Query<RefRO<VisualProxySpawnRequest>,
                              VisualTransform>().WithEntityAccess())
             {
-                if (!visualObject.Value.TryGetComponent<EntityAnimator>(out EntityAnimator animator))
+                if (!visualObject.Value.TryGetComponent(out EntityAnimator animator))
                 {
                     continue;
                 }

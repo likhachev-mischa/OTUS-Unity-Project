@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee0ac36053ad4439a2f66e844b1a23c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialAnimationSpeed: 1
+  initialAnimationSpeed: 4
   animator: {fileID: 3370823229561755899}
   lerpFactor: 0.04
 --- !u!114 &2678128067269822859

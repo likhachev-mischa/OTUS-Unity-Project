@@ -67,7 +67,7 @@ namespace DI
             }
         }
 
-        private void RemoveInstaller(object installer)
+        public void RemoveInstaller(object installer)
         {
             if (installer is IGameListenerProvider listenerProvider)
             {

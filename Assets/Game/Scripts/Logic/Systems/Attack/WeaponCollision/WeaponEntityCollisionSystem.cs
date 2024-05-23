@@ -65,7 +65,7 @@ namespace Game.Systems
 
 
             var @event = ECB.CreateEntity();
-            ECB.AddComponent(@event, new AttackCollisionEvent() { Source = weaponEntity, Target = attackedEntity });
+            ECB.AddComponent(@event, new AttackEvent() { Source = weaponEntity, Target = attackedEntity });
         }
     }
 }
